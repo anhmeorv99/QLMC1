@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +26,7 @@ Route::namespace('App\Http\Controllers\Auth')->group(function () {
 	Route::post('/register','LoginController@process_signup');
 	Route::get('/logout','LoginController@logout')->name('logout');
 
-	Route::get('/', 'HomeController@index')->name('home');
+	Route::get('/home', [HomeController::class, 'index'])->name('home');
   });
 
 // Auth::routes();
