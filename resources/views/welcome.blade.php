@@ -146,10 +146,6 @@
                       <a href="{{ url('/home') }}" style="color: #1f1f1f;">Bạn Vào nhầm Trang rồi !<br> Quay Trở Lại Trang Quản Lý Thôi</a>
                     @else
                         <div class="login"><button class="button mask1" name="Hover" id="work"><span><a href="{{ route('login') }}">ĐĂNG NHẬP</a></span></button></div>
-
-                        @if (Route::has('register'))
-                            <div class="register"><button class="button"><a href="{{ route('register') }}">ĐĂNG KÝ</a></button><div>
-                        @endif
                     @endauth
                 </div>
             @endif
