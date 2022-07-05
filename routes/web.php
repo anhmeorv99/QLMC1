@@ -25,6 +25,8 @@ Route::namespace('App\Http\Controllers\Auth')->group(function () {
 	Route::get('/register','LoginController@show_signup_form')->name('register');
 	Route::post('/register','LoginController@process_signup');
 	Route::get('/logout','LoginController@logout')->name('logout');
+
+	Route::get('/', 'HomeController@index')->name('home');
   });
 
 // Auth::routes();
