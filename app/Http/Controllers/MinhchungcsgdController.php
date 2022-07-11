@@ -16,11 +16,16 @@ class MinhchungcsgdController extends Controller
     public function index()
     {
 
-        $query = DB::table("minhchungcsgds");
-        $query = $query->orderby("id", "DESC");
-        $query = $query->select("*");
+        $query = DB::table("minhchung");
+        $query = $query->select('minhchung.*', 'dvbc.ten_dvbc as dvbc')
+        ->leftJoin('dvbc', function($leftJoin)
+        {
+            $leftJoin->on('minhchung.ten_dvbc', '=', 'dvbc.id');
+        })->where('minhchung.kieu_minh_chung', '=', 'csgd')
+        ->orderby("minhchung.id", "ASC");
+        
         $data = $query->paginate(50);
-    //    $tieuchuans = DB::table('tieuchuans')->get();
+        
         return view('/minhchungcsgd/minhchungcsgd',$data);
     }
 

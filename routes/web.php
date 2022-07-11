@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MinhchungcsgdController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,21 +17,23 @@ use App\Http\Controllers\HomeController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 Route::namespace('App\Http\Controllers\Auth')->group(function () {
-	Route::get('/login','LoginController@show_login_form')->name('login');
-	Route::post('/login','LoginController@process_login')->name('login');
-	Route::get('/register','LoginController@show_signup_form')->name('register');
-	Route::post('/register','LoginController@process_signup');
-	Route::get('/logout','LoginController@logout')->name('logout');
+	Route::get('/login', 'LoginController@show_login_form')->name('login');
+	Route::post('/login', 'LoginController@process_login')->name('login');
+	Route::get('/register', 'LoginController@show_signup_form')->name('register');
+	Route::post('/register', 'LoginController@process_signup');
+	Route::get('/logout', 'LoginController@logout')->name('logout');
 
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
-  });
+});
 
 // Auth::routes();
 // Route::group(['middleware' => 'auth'], function(){
+Route::group([] ,function(){
+
 // 	Route::get('/home', 'HomeController@index')->name('home');
 
 // 	Route::get('/nhomthuchien', 'HomeController@show')->name('nhomthuchien');
@@ -47,11 +50,11 @@ Route::namespace('App\Http\Controllers\Auth')->group(function () {
 // /*	Route::match(['get', 'post'],'/themtieuchuanctdt', 'TieuchuanctdtController@add')->name('themtieuchuanctdt');
 // */
 
-// 	Route::get('/minhchungcsgd', 'MinhchungcsgdController@index')->name('minhchungcsgd');
-// 	Route::match(['get', 'post'],'/themminhchungcsgd', 'MinhchungcsgdController@create')->name('themminhchungcsgd');
-// 	Route::match(['get', 'post'],'/suaminhchungcsgd/{id}', 'MinhchungcsgdController@edit')->name('suaminhchungcsgd');
-// 	Route::get('/xoaminhchungcsgd/{id}', 'MinhchungcsgdController@delete');
-// 	Route::match(['get', 'post'],'/timminhchungcsgd', 'MinhchungcsgdController@search')->name('timminhchungcsgd');
+	Route::get('/minhchungcsgd', [MinhchungcsgdController::class, 'index'])->name('minhchungcsgd');
+	// Route::match(['get', 'post'],'/themminhchungcsgd', [MinhchungcsgdController::class, 'create'])->name('themminhchungcsgd');
+	// Route::match(['get', 'post'],'/suaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'edit'])->name('suaminhchungcsgd');
+	// Route::get('/xoaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'delete']);
+	// Route::match(['get', 'post'],'/timminhchungcsgd', [MinhchungcsgdController::class, 'search'])->name('timminhchungcsgd');
 
 // 	Route::get('/minhchungctdt', 'MinhchungctdtController@index')->name('minhchungctdt');
 // 	Route::match(['get', 'post'],'/themminhchungctdt', 'MinhchungctdtController@create')->name('themminhchungctdt');
@@ -76,7 +79,7 @@ Route::namespace('App\Http\Controllers\Auth')->group(function () {
 // 	Route::get('/xoabaocaocsgd/{id}', 'BaocaocsgdController@delete');
 // 	Route::match(['get', 'post'],'/timbaocaocsgd', 'BaocaocsgdController@search')->name('timbaocaocsgd');
 
-// 	Route::match(['get', 'post'],'/chonminhchungcsgd', 'MinhchungcsgdController@show')->name('chonminhchungcsgd');
+	// Route::match(['get', 'post'],'/chonminhchungcsgd', 'MinhchungcsgdController@show')->name('chonminhchungcsgd');
 // 	Route::match(['get', 'post'],'/chontieuchuancsgd', 'TieuchuancsgdController@show')->name('chontieuchuancsgd');
 // 	Route::match(['get', 'post'],'/chontieuchicsgd', 'TieuchicsgdController@show')->name('chonchicsgd');
 
@@ -98,7 +101,7 @@ Route::namespace('App\Http\Controllers\Auth')->group(function () {
 // 	Route::match(['get', 'post'],'/timuser', 'UserController@search')->name('timuser');
 
 
-// });
+});
 
 // Auth::routes();
 
