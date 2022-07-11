@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MinhchungcsgdController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,8 +24,8 @@ Route::get('/', function () {
 Route::namespace('App\Http\Controllers\Auth')->group(function () {
 	Route::get('/login', 'LoginController@show_login_form')->name('login');
 	Route::post('/login', 'LoginController@process_login')->name('login');
-	Route::get('/register', 'LoginController@show_signup_form')->name('register');
-	Route::post('/register', 'LoginController@process_signup');
+	Route::get('/register', 'LoginController@show_signup_form')->name('register')->middleware('can:admin');
+	Route::post('/register', 'LoginController@process_signup')->middleware('can:admin');
 	Route::get('/logout', 'LoginController@logout')->name('logout');
 
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -50,7 +51,7 @@ Route::group([] ,function(){
 // /*	Route::match(['get', 'post'],'/themtieuchuanctdt', 'TieuchuanctdtController@add')->name('themtieuchuanctdt');
 // */
 
-	Route::get('/minhchungcsgd', [MinhchungcsgdController::class, 'index'])->name('minhchungcsgd');
+	Route::get('/minhchungcsgd', [MinhchungcsgdController::class, 'index'])->name('minhchungcsgd')->middleware('can:admin');
 	// Route::match(['get', 'post'],'/themminhchungcsgd', [MinhchungcsgdController::class, 'create'])->name('themminhchungcsgd');
 	// Route::match(['get', 'post'],'/suaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'edit'])->name('suaminhchungcsgd');
 	// Route::get('/xoaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'delete']);
@@ -94,7 +95,7 @@ Route::group([] ,function(){
 // 	Route::match(['get', 'post'],'/chontieuchuanctdt', 'TieuchuanctdtController@show')->name('chontieuchuanctdt');
 // 	Route::match(['get', 'post'],'/chontieuchictdt', 'TieuchictdtController@show')->name('chontieuchictdt');
 
-// 	Route::get('/danhsachuser', 'UserController@index')->name('danhsachuser');
+	Route::get('/danhsachuser', [UserController::class, 'index'])->name('danhsachuser');
 // 	Route::match(['get', 'post'],'/themuser', 'UserController@create')->name('themuser');
 // 	Route::match(['get', 'post'],'/suauser/{id}', 'UserController@edit')->name('suauser');
 // 	Route::get('/xoauser/{id}', 'UserController@delete');
