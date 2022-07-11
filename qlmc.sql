@@ -5,6 +5,7 @@ CREATE TABLE UserHDDG (
   name VARCHAR(255),
   username VARCHAR(255),
   password VARCHAR(255),
+  email VARCHAR(255),
   phone VARCHAR(20),
   address TEXT,
   permission VARCHAR(20),
@@ -18,6 +19,7 @@ CREATE TABLE UserDVBC (
   name VARCHAR(255),
   username VARCHAR(255),
   password VARCHAR(255),
+  email VARCHAR(255),
   phone VARCHAR(20),
   address TEXT,
   id_DVBC INT NOT NULL,
@@ -40,7 +42,6 @@ CREATE TABLE BaoCao(
 -- Chi tiết về báo cáo. tiêu chuẩn, tiêu chí, minh chứng
 CREATE TABLE ChiTietBaoCao(
   id_bao_cao INT NOT NULL,
-  id_tieu_chuan INT NOT NULL,
   id_tieu_chi INT NOT NULL,
   id_minh_chung INT NOT NULL
 );
@@ -104,7 +105,6 @@ CREATE TABLE TieuChi (
 
 ALTER TABLE ChiTietBaoCao ADD CONSTRAINT fk_proof FOREIGN KEY (id_minh_chung) REFERENCES MinhChung (id);
 ALTER TABLE ChiTietBaoCao ADD CONSTRAINT fk_report FOREIGN KEY (id_bao_cao) REFERENCES BaoCao (id);
-ALTER TABLE ChiTietBaoCao ADD CONSTRAINT fk_standard FOREIGN KEY (id_tieu_chuan) REFERENCES TieuChuan (id);
 ALTER TABLE ChiTietBaoCao ADD CONSTRAINT fk_criteria FOREIGN KEY (id_tieu_chi) REFERENCES TieuChi (id);
 
 ALTER TABLE TieuChi ADD CONSTRAINT fk_standard_criteria FOREIGN KEY (id_tieu_chuan) REFERENCES TieuChuan(id);
