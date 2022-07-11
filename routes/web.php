@@ -7,6 +7,7 @@ use App\Http\Controllers\MinhchungcsgdController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TieuchuancsgdController;
 use App\Http\Controllers\BaocaocsgdController;
+use App\Http\Controllers\EmpController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +37,9 @@ Route::namespace('App\Http\Controllers\Auth')->group(function () {
 // Route::group(['middleware' => 'auth'], function(){
 Route::group([] ,function(){
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+	Route::get('employee', [EmpController::class, 'index']);
+	Route::get('emp/listing', [EmpController::class, 'getEmployees'])->name('emp.listing');
 
 // 	Route::get('/home', 'HomeController@index')->name('home');
 
