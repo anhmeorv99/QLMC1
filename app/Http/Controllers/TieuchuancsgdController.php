@@ -22,7 +22,7 @@ class TieuchuancsgdController extends Controller
      */
     public function index()
     {
-        $query = DB::table("tieuchuancsgds");
+        $query = DB::table("tieuchuan");
         $query = $query->orderby("id");
         $query = $query->select("*");
         $data = $query->paginate(100); 

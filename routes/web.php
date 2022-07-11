@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MinhchungcsgdController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TieuchuancsgdController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,13 +39,13 @@ Route::group([] ,function(){
 // 	Route::get('/home', 'HomeController@index')->name('home');
 
 // 	Route::get('/nhomthuchien', 'HomeController@show')->name('nhomthuchien');
-// /*	Route::get('/tieuchuan', 'TieuchuanController@index')->name('tieuchuan');
-// 	Route::match(['get', 'post'],'/themtieuchuan', 'TieuchuanController@add')->name('themtieuchuan');
-// */
-// 	Route::get('/tieuchuancsgd', 'TieuchuancsgdController@index')->name('tieuchuancsgd');
-// 	Route::match(['get', 'post'],'/timtieuchuancsgd', 'TieuchuancsgdController@search')->name('timtieuchuancsgd');
-// /*	Route::match(['get', 'post'],'/themtieuchuancsgd', 'TieuchuancsgdController@add')->name('themtieuchuancsgd');
-// */
+	Route::get('/tieuchuan', 'TieuchuanController@index')->name('tieuchuan');
+ 	Route::match(['get', 'post'],'/themtieuchuan', 'TieuchuanController@add')->name('themtieuchuan');
+
+	Route::get('/tieuchuancsgd', [TieuchuancsgdController::class, 'index'])->name('tieuchuancsgd');
+	Route::match(['get', 'post'],'/timtieuchuancsgd', 'TieuchuancsgdController@search')->name('timtieuchuancsgd');
+	Route::match(['get', 'post'],'/themtieuchuancsgd', 'TieuchuancsgdController@add')->name('themtieuchuancsgd');
+
 
 // 	Route::get('/tieuchuanctdt', 'TieuchuanctdtController@index')->name('tieuchuanctdt');
 // 	Route::match(['get', 'post'],'/timtieuchuanctdt', 'TieuchuanctdtController@search')->name('timtieuchuanctdt');
@@ -52,10 +53,10 @@ Route::group([] ,function(){
 // */
 
 	Route::get('/minhchungcsgd', [MinhchungcsgdController::class, 'index'])->name('minhchungcsgd')->middleware('can:admin');
-	// Route::match(['get', 'post'],'/themminhchungcsgd', [MinhchungcsgdController::class, 'create'])->name('themminhchungcsgd');
-	// Route::match(['get', 'post'],'/suaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'edit'])->name('suaminhchungcsgd');
-	// Route::get('/xoaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'delete']);
-	// Route::match(['get', 'post'],'/timminhchungcsgd', [MinhchungcsgdController::class, 'search'])->name('timminhchungcsgd');
+	Route::match(['get', 'post'],'/themminhchungcsgd', [MinhchungcsgdController::class, 'create'])->name('themminhchungcsgd');
+	Route::match(['get', 'post'],'/suaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'edit'])->name('suaminhchungcsgd');
+	Route::get('/xoaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'delete']);
+	Route::match(['get', 'post'],'/timminhchungcsgd', [MinhchungcsgdController::class, 'search'])->name('timminhchungcsgd');
 
 // 	Route::get('/minhchungctdt', 'MinhchungctdtController@index')->name('minhchungctdt');
 // 	Route::match(['get', 'post'],'/themminhchungctdt', 'MinhchungctdtController@create')->name('themminhchungctdt');
@@ -81,7 +82,7 @@ Route::group([] ,function(){
 // 	Route::match(['get', 'post'],'/timbaocaocsgd', 'BaocaocsgdController@search')->name('timbaocaocsgd');
 
 	// Route::match(['get', 'post'],'/chonminhchungcsgd', 'MinhchungcsgdController@show')->name('chonminhchungcsgd');
-// 	Route::match(['get', 'post'],'/chontieuchuancsgd', 'TieuchuancsgdController@show')->name('chontieuchuancsgd');
+	Route::match(['get', 'post'],'/chontieuchuancsgd', 'TieuchuancsgdController@show')->name('chontieuchuancsgd');
 // 	Route::match(['get', 'post'],'/chontieuchicsgd', 'TieuchicsgdController@show')->name('chonchicsgd');
 
 
