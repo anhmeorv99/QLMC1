@@ -29,9 +29,9 @@
               @foreach($data as $row)
               <tr>
                 <td>{{$row->id}}</td>
-                <td>{{$row->tentieuchuan}}</td>
-                <td>{{$row->tencap}}</td>
-                <td>{{$row->noidung}}</td>
+                <td>{{$row->ten_tieu_chuan}}</td>
+                <td>{{$row->loai_tieu_chuan}}</td>
+                <td>{{$row->noi_dung}}</td>
               </tr>
               @endforeach
             </tbody>
