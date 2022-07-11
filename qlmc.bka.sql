@@ -3,7 +3,7 @@
 CREATE TABLE UserHDDG (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255),
-  username VARCHAR(255),
+  username VARCHAR(255) UNIQUE,
   password VARCHAR(255),
   email VARCHAR(255),
   phone VARCHAR(20),
@@ -16,7 +16,7 @@ CREATE TABLE UserHDDG (
 -- Tài khoản Đơn vị báo cáo
 CREATE TABLE UserDVBC (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255),
+  name VARCHAR(255) UNIQUE,
   username VARCHAR(255),
   password VARCHAR(255),
   email VARCHAR(255),
