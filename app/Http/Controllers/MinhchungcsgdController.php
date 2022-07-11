@@ -17,10 +17,10 @@ class MinhchungcsgdController extends Controller
     {
 
         $query = DB::table("minhchung");
-        $query = $query->select('minhchung.*', 'dvbc.ten_dvbc as dvbc')
+        $query = $query->select('minhchung.*', 'dvbc.id as dvbc')
         ->leftJoin('dvbc', function($leftJoin)
         {
-            $leftJoin->on('minhchung.ten_dvbc', '=', 'dvbc.id');
+            $leftJoin->on('minhchung.id_dvbc', '=', 'dvbc.id');
         })->where('minhchung.kieu_minh_chung', '=', 'csgd')
         ->orderby("minhchung.id", "ASC");
         

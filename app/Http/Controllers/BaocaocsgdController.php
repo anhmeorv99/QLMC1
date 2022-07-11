@@ -7,6 +7,7 @@ use App\Models\MinhChung;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use DB;
+use DataTables;
 
 class BaocaocsgdController extends Controller
 {
