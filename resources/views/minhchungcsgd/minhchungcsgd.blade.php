@@ -17,15 +17,15 @@
                 <div class="col-xs-12 table-responsive">
                     <table class="table table-striped">
                         <thead>
-                            <tr>
+                            <tr style="text-align:left">
                                 <th>ID</th>
                                 <th>Tên Minh Chứng</th>
                                 <th>Nơi Ban Hành</th>
                                 <th>Ngày Ban Hành</th>
-                                <th>Số Hiệu</th>
-                                <th>Tiêu Chuẩn</th>
-                                <th>Tiêu Chí</th>
-                                <th>Tên Cấp</th>
+                                <th>Mã minh chứng</th>
+                                <th>Đơn vị báo cáo</th>
+                                <!-- <th>Tiêu chí</th>
+                                <th>Tiêu chuẩn</th> -->
                                 <th class="col-2 col-sm-3">Nội Dung</th>
                                 <th colspan="3">Hành động</th>
                             </tr>
@@ -34,14 +34,13 @@
                             @foreach ($data as $row)
                                 <tr>
                                     <td>{{ $row->id }}</td>
-                                    <td>{{ $row->tenminhchung }}</td>
-                                    <td>{{ $row->noibanhanh }}</td>
-                                    <td>{{ $row->ngaybanhanh }}</td>
-                                    <td>{{ $row->sohieu }}</td>
-                                    <td>{{ $row->tentieuchuan }}</td>
-                                    <td>{{ $row->tentieuchi }}</td>
-                                    <td>{{ $row->tencap }}</td>
-                                    <td>{{ $row->noidung }}</td>
+                                    <td>{{ $row->ten_minh_chung }}</td>
+                                    <td>{{ $row->dia_diem_phat_hanh }}</td>
+                                    <td>{{ $row->ngay_phat_hanh }}</td>
+                                    <td>{{ $row->ma_minh_chung }}</td>
+                                    <td>{{ $row->dvbc }}</td>
+                                    
+                                    <td>{{ $row->noi_dung }}</td>
 
                                     <td>
                                         <a href="{{ url('/uploads') }}/{{ $row->hash_file }}"
