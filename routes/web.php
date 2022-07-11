@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MinhchungcsgdController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TieuchuancsgdController;
+use App\Http\Controllers\BaocaocsgdController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,11 +76,11 @@ Route::group([] ,function(){
 // 	Route::get('/tieuchictdt', 'TieuchictdtController@index')->name('tieuchictdt');
 // 	Route::match(['get', 'post'],'/timtieuchictdt', 'TieuchictdtController@search')->name('timtieuchictdt');
 
-// 	Route::get('/danhsachbaocaocsgd', 'BaocaocsgdController@index')->name('danhsachbaocaocsgd');
-// 	Route::match(['get', 'post'],'/vietbaocaocsgd', 'BaocaocsgdController@create')->name('vietbaocaocsgd');
-// 	Route::match(['get', 'post'],'/suabaocaocsgd/{id}', 'BaocaocsgdController@edit')->name('suabaocaocsgd');
-// 	Route::get('/xoabaocaocsgd/{id}', 'BaocaocsgdController@delete');
-// 	Route::match(['get', 'post'],'/timbaocaocsgd', 'BaocaocsgdController@search')->name('timbaocaocsgd');
+	Route::get('/danhsachbaocaocsgd', [BaocaocsgdController::class, 'index'])->name('danhsachbaocaocsgd');
+	Route::match(['get', 'post'],'/vietbaocaocsgd', [BaocaocsgdController::class, 'create'])->name('vietbaocaocsgd');
+	Route::match(['get', 'post'],'/suabaocaocsgd/{id}', 'BaocaocsgdController@edit')->name('suabaocaocsgd');
+	Route::get('/xoabaocaocsgd/{id}', 'BaocaocsgdController@delete');
+	Route::match(['get', 'post'],'/timbaocaocsgd', 'BaocaocsgdController@search')->name('timbaocaocsgd');
 
 	// Route::match(['get', 'post'],'/chonminhchungcsgd', 'MinhchungcsgdController@show')->name('chonminhchungcsgd');
 	Route::match(['get', 'post'],'/chontieuchuancsgd', 'TieuchuancsgdController@show')->name('chontieuchuancsgd');
