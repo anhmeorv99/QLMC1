@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\UserHDDG;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use DB;
@@ -22,7 +22,7 @@ class UserController extends Controller
 
         $data = $query->paginate(100); 
     //    $tieuchuans = DB::table('tieuchuans')->get();
-        return view('/user/danhsachuser',$data);
+        return view('user.hddg.users',$data);
     }
 
     /**
@@ -30,9 +30,45 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+
+    public function create(Request $request)
+    {   
+        if($request->isMethod('post')){
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'permission' => 'required'
+            ]);
+            
+
+
+            if ($request->permission == "admin" or $request->permission == "mod") {
+                $user = UserHDDG::where('username', '=', strtolower($request->input('username')))->first();
+                if ($user === null) {
+                    $user = UserHDDG::create([
+                        'name' => trim($request->input('name')),
+                        'username' => strtolower($request->input('username')),
+                        'email' => strtolower($request->input('email')),
+                        'password' => bcrypt($request->input('password')),
+                        'permission' => trim($request->permission),
+                        'address' => trim($request->input('address')),
+                    ]);
+                    session()->flash('success', 'Your account is created');
+                    return Redirect::to("/users-hddg");
+
+                }
+                return redirect()->back()->with('error', 'username already exists');   
+                
+            }
+            
+    
+        }
+        else{
+            return view('user.hddg.register');
+        }
+       
+        // return redirect()->route('login');
     }
 
     /**
@@ -47,10 +83,10 @@ class UserController extends Controller
     }
     public function delete($id)
     {
-        $userDelete = User::find($id);
+        $userDelete = UserHDDG::find($id);
         $userDelete->delete();
 
-        return redirect('/danhsachuser');
+        return redirect('/users-hddg');
         alert('Đã xóa thành công minh chứng');
     }
     public function search(Request $request)
