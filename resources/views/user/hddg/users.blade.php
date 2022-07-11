@@ -21,7 +21,9 @@
             <tr>
               <th>ID</th>
               <th>Tên Người Dùng</th>
+              <th>Tên tài khoản</th>
               <th>Email</th>
+              <th>Quyền</th>
               <th>Xóa</th>
             </tr>
             </thead>
@@ -30,9 +32,11 @@
               <tr>
                 <td>{{$row->id}}</td>
                 <td>{{$row->name}}</td>
+                <td>{{$row->username}}</td>
                 <td>{{$row->email}}</td>
+                <td>{{$row->permission}}</td>
         
-                <td>  <a href="{{ url('/xoauser')}}/{{$row->id}}" onclick="return  confirm(' Bạn có chắc muốn xóa user này chứ!')" class="glyphicon glyphicon-remove">Xóa</a>
+                <td>  <a href="{{ url('/delete-hddg')}}/{{$row->id}}" onclick="return  confirm(' Bạn có chắc muốn xóa user này chứ!')" class="glyphicon glyphicon-remove">Xóa</a>
                 </td>
               </tr>
               @endforeach

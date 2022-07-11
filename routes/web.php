@@ -28,12 +28,12 @@ Route::namespace('App\Http\Controllers\Auth')->group(function () {
 	Route::post('/register', 'LoginController@process_signup')->middleware('can:admin');
 	Route::get('/logout', 'LoginController@logout')->name('logout');
 
-	Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
 // Auth::routes();
 // Route::group(['middleware' => 'auth'], function(){
 Route::group([] ,function(){
+	Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // 	Route::get('/home', 'HomeController@index')->name('home');
 
@@ -95,10 +95,10 @@ Route::group([] ,function(){
 // 	Route::match(['get', 'post'],'/chontieuchuanctdt', 'TieuchuanctdtController@show')->name('chontieuchuanctdt');
 // 	Route::match(['get', 'post'],'/chontieuchictdt', 'TieuchictdtController@show')->name('chontieuchictdt');
 
-	Route::get('/danhsachuser', [UserController::class, 'index'])->name('danhsachuser');
-// 	Route::match(['get', 'post'],'/themuser', 'UserController@create')->name('themuser');
+	Route::get('/users-hddg', [UserController::class, 'index'])->name('users-hddg')->middleware('can:admin');
+	Route::match(['get', 'post'],'/create-hddg', [UserController::class, 'create'])->name('create-hddg')->middleware('can:admin');
 // 	Route::match(['get', 'post'],'/suauser/{id}', 'UserController@edit')->name('suauser');
-// 	Route::get('/xoauser/{id}', 'UserController@delete');
+	Route::get('/delete-hddg/{id}', [UserController::class, 'delete'])->middleware('can:admin');
 // 	Route::match(['get', 'post'],'/timuser', 'UserController@search')->name('timuser');
 
 

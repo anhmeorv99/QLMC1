@@ -59,7 +59,7 @@ class LoginController extends Controller
 
         session()->flash('message', 'Your account is created');
        
-        return redirect()->route('login');
+        // return redirect()->route('login');
     }
     public function logout()
     {

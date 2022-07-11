@@ -25,6 +25,8 @@ class UserHDDG extends Authenticatable
         'username',
         'email',
         'password',
+        'permission',
+        'address',
     ];
 
     /**

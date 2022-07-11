@@ -244,8 +244,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('/danhsachuser')}}"><i class="fa fa-circle-o"></i> Danh sách người dùng</a></li>
-            <li><a href="{{ url('/timuser')}}"><i class="fa fa-circle-o"></i> Tìm kiếm người dùng</a></li>
+            <li><a href="{{ url('/users-hddg')}}"><i class="fa fa-circle-o"></i> Tài khoản HĐĐG</a></li>
+            <li><a href="{{ url('/users-dvbc')}}"><i class="fa fa-circle-o"></i> Tài khoản DVBC</a></li>
+            <!-- <li><a href="{{ url('/timuser')}}"><i class="fa fa-circle-o"></i> Tìm kiếm người dùng</a></li> -->
           </ul>
         </li>
         <!-- /.quản lý user -->
