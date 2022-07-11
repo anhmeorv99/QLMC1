@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Baocaocsgd;
-use App\Minhchungcsgd;
+use App\Models\MinhChung;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use DB;
@@ -17,7 +17,7 @@ class BaocaocsgdController extends Controller
      */
     public function index()
     {
-        $query = DB::table("baocaocsgds");
+        $query = DB::table("baocao");
         $query = $query->orderby("id");
         $query = $query->select("*");
         $data = $query->paginate(50); 
@@ -33,7 +33,7 @@ class BaocaocsgdController extends Controller
      */
     public function create(Request $request)
     {
-        $minhchungcsgdList = Minhchungcsgd::select('id','sohieu')->get();
+        $minhchungcsgdList = MinhChung::select('id')->get();
 
         
         if($request->isMethod('post')){
@@ -46,7 +46,7 @@ class BaocaocsgdController extends Controller
             $sohieuminhchung = $request->input("sohieuminhchung");
             
 
-            $baocaocsgd = new Baocaocsgd();
+            $baocaocsgd = new Baocao();
             $baocaocsgd->tenbaocao=$tenbaocao;
             $baocaocsgd->tentieuchuan=$tentieuchuan;
             $baocaocsgd->tentieuchi=$tentieuchi;
