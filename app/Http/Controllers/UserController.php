@@ -17,9 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $query = DB::table("users");
-        $query = $query->orderby("id");
-        $query = $query->select("*");
+        $query = DB::table("userhddg");
+        $query = $query->select("*")->where("permission", "!=", "admin")->orderby("id");
+
         $data = $query->paginate(100); 
     //    $tieuchuans = DB::table('tieuchuans')->get();
         return view('/user/danhsachuser',$data);

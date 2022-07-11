@@ -62,9 +62,7 @@
             <ul class="dropdown-menu" style="background-color: #F1F1F1; width:50%;" >
               <li class="user-footer" style="background-color: #F1F1F1; width: 60%;margin-left: 50px;">
                 <div class="pull-right">
-                  <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Đăng Xuất</a>
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf
-                        </form>
+                  <a href="{{ route('logout') }}" class="btn btn-default btn-flat">Đăng Xuất</a>
                 </div>
               </li>
             </ul>

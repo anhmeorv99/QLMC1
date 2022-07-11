@@ -112,33 +112,6 @@ ALTER TABLE TieuChi ADD CONSTRAINT fk_standard_criteria FOREIGN KEY (id_tieu_chu
 ALTER TABLE UserDVBC ADD CONSTRAINT fk_report_ei FOREIGN KEY (id_DVBC) REFERENCES DVBC(id);
 ALTER TABLE CTDT ADD CONSTRAINT fk_sc_ei FOREIGN KEY (id_DVBC) REFERENCES CTDT(id);
 
-ALTER TABLE `laravel`.`UserHDDG` 
-RENAME TO  `laravel`.`userhddg` ;
-
-ALTER TABLE `laravel`.`UserDVBC` 
-RENAME TO  `laravel`.`userdvbc` ;
-
-ALTER TABLE `laravel`.`TieuChuan` 
-RENAME TO  `laravel`.`tieuchuan` ;
-
-ALTER TABLE `laravel`.`TieuChi` 
-RENAME TO  `laravel`.`tieuchi` ;
-
-ALTER TABLE `laravel`.`MinhChung` 
-RENAME TO  `laravel`.`minhchung` ;
-
-
-ALTER TABLE `quanlyminhchung`.`UserHDDG` 
-RENAME TO  `quanlyminhchung`.`userhddg` ;
-
-ALTER TABLE `quanlyminhchung`.`UserDVBC` 
-RENAME TO  `quanlyminhchung`.`userdvbc` ;
-
-ALTER TABLE `quanlyminhchung`.`userhddg` 
-ADD COLUMN `email` VARCHAR(45) NULL AFTER `updated_at`;
-
-ALTER TABLE `quanlyminhchung`.`MinhChung` 
-RENAME TO  `quanlyminhchung`.`minhchung` ;
 
 
 INSERT INTO `quanlyminhchung`.`minhchung` (`ten_minh_chung`, `kieu_minh_chung`, `noi_dung`, `ten_dvbc`, `dia_diem_phat_hanh`, `ngay_phat_hanh`, `ma_minh_chung`, `file`, `hash_file`) VALUES ('hệ thống thông tin', 'ctdt', 'lý thuyết thông tin, truyền tin', '2', 'Hà Nội', '2022-03-06 00:00:00', 'HTTT', 'xyz.jpg', ' ');
@@ -154,14 +127,6 @@ INSERT INTO `quanlyminhchung`.`minhchung` (`ten_minh_chung`, `kieu_minh_chung`, 
 INSERT INTO `quanlyminhchung`.`minhchung` (`ten_minh_chung`, `kieu_minh_chung`, `noi_dung`, `ten_dvbc`, `dia_diem_phat_hanh`, `ngay_phat_hanh`, `ma_minh_chung`, `file`, `hash_file`) VALUES ('name9', 'csgd', 'lý thuyết 9', '2', 'Hà Nội', '2022-03-06 00:00:00', 'HTTT', 'xyz.jpg', ' ');
 INSERT INTO `quanlyminhchung`.`minhchung` (`ten_minh_chung`, `kieu_minh_chung`, `noi_dung`, `ten_dvbc`, `dia_diem_phat_hanh`, `ngay_phat_hanh`, `ma_minh_chung`, `file`, `hash_file`) VALUES ('name10', 'ctdt', 'lý thuyết 10', '2', 'Hà Nội', '2022-03-06 00:00:00', 'HTTT', 'xyz.jpg', ' ');
 INSERT INTO `quanlyminhchung`.`minhchung` (`ten_minh_chung`, `kieu_minh_chung`, `noi_dung`, `ten_dvbc`, `dia_diem_phat_hanh`, `ngay_phat_hanh`, `ma_minh_chung`, `file`, `hash_file`) VALUES ('name11', 'ctdt', 'lý thuyết 11', '2', 'Hà Nội', '2022-03-06 00:00:00', 'HTTT', 'xyz.jpg', ' ');
-
-
-ALTER TABLE `quanlyminhchung`.`TieuChuan` 
-RENAME TO  `quanlyminhchung`.`tieuchuan` ;
-
-
-ALTER TABLE `quanlyminhchung`.`TieuChi` 
-RENAME TO  `quanlyminhchung`.`tieuchi` ;
 
 
 INSERT INTO `quanlyminhchung`.`tieuchuan` (`ten_tieu_chuan`, `noi_dung`, `loai_tieu_chuan`) VALUES ('tiêu chuẩn 1', 'nội dung tiêu chuẩn 1', 'loại 1');
@@ -200,13 +165,3 @@ ADD CONSTRAINT `fk_minhchung_1`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
-
-ALTER TABLE `quanlyminhchung`.`DVBC` 
-RENAME TO  `quanlyminhchung`.`dvbc` ;
-
-
-select minhchung.*, dvbc.ten_dvbc 
-from minhchung
-left join dvbc
-on dvbc.id = minhchung.ten_dvbc
-where minhchung.kieu_minh_chung='csgd'

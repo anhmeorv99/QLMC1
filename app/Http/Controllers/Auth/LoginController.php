@@ -31,7 +31,7 @@ class LoginController extends Controller
         $user = UserHDDG::where('username',$request->username)->first();
         if (auth()->attempt($credentials)) {
 
-            return view('welcome');
+           return redirect()->route('home');
 
         }else{
             session()->flash('message', 'Invalid credentials');
