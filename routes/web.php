@@ -101,10 +101,15 @@ Route::group([] ,function(){
 // 	Route::match(['get', 'post'],'/chontieuchuanctdt', 'TieuchuanctdtController@show')->name('chontieuchuanctdt');
 // 	Route::match(['get', 'post'],'/chontieuchictdt', 'TieuchictdtController@show')->name('chontieuchictdt');
 
-	Route::get('/users-hddg', [UserController::class, 'index'])->name('users-hddg')->middleware('can:admin');
-	Route::match(['get', 'post'],'/create-hddg', [UserController::class, 'create'])->name('create-hddg')->middleware('can:admin');
+	Route::get('/users-hddg', [UserController::class, 'index_hddg'])->name('users-hddg')->middleware('can:admin');
+	Route::match(['get', 'post'],'/create-hddg', [UserController::class, 'create_hddg'])->name('create-hddg')->middleware('can:admin');
+	Route::get('/delete-hddg/{id}', [UserController::class, 'delete_hddg'])->middleware('can:admin');
+
+	Route::get('/users-dvbc', [UserController::class, 'index_dvbc'])->name('users-hddg')->middleware('can:admin');
+	Route::match(['get', 'post'],'/create-dvbc', [UserController::class, 'create_dvbc'])->name('create-dvbc')->middleware('can:admin');
+	Route::get('/delete-hddg/{id}', [UserController::class, 'delete_dvbc'])->middleware('can:admin');
+	
 // 	Route::match(['get', 'post'],'/suauser/{id}', 'UserController@edit')->name('suauser');
-	Route::get('/delete-hddg/{id}', [UserController::class, 'delete'])->middleware('can:admin');
 // 	Route::match(['get', 'post'],'/timuser', 'UserController@search')->name('timuser');
 
 

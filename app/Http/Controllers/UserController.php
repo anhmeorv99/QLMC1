@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserHDDG;
+
+use App\Models\UserDVBC;
+use App\Models\DVBC;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use DB;
@@ -10,28 +13,16 @@ use DB;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index_hddg()
     {
         $query = DB::table("userhddg");
         $query = $query->select("*")->where("permission", "!=", "admin")->orderby("id");
 
         $data = $query->paginate(100); 
-    //    $tieuchuans = DB::table('tieuchuans')->get();
         return view('user.hddg.users',$data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function create(Request $request)
+  
+    public function create_hddg(Request $request)
     {   
         if($request->isMethod('post')){
             $request->validate([
@@ -40,7 +31,6 @@ class UserController extends Controller
                 'password' => 'required',
                 'permission' => 'required'
             ]);
-            
 
 
             if ($request->permission == "admin" or $request->permission == "mod") {
@@ -53,6 +43,7 @@ class UserController extends Controller
                         'password' => bcrypt($request->input('password')),
                         'permission' => trim($request->permission),
                         'address' => trim($request->input('address')),
+                        'phone' => trim($request->input('phone')),
                     ]);
                     session()->flash('success', 'Your account is created');
                     return Redirect::to("/users-hddg");
@@ -68,20 +59,9 @@ class UserController extends Controller
             return view('user.hddg.register');
         }
        
-        // return redirect()->route('login');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-    public function delete($id)
+    public function delete_hddg($id)
     {
         $userDelete = UserHDDG::find($id);
         $userDelete->delete();
@@ -89,62 +69,61 @@ class UserController extends Controller
         return redirect('/users-hddg');
         alert('Đã xóa thành công minh chứng');
     }
-    public function search(Request $request)
+
+
+    public function index_dvbc()
     {
-        $query = DB::table("users");
+        $query = DB::table("userdvbc");
+        $query = $query->select("*")->orderby("id");
+
+        $data = $query->paginate(20); 
+        return view('user.dvbc.users',$data);
+    }
+
+
+    public function create_dvbc(Request $request)
+    {   
         if($request->isMethod('post')){
-            $name = $request->input("name");
-            $email = $request->input("email");
-            $query = $query ->where('name', 'like', '%' .  $name . '%')->where('email', 'like', '%' .  $email . '%');
-                      
-                            
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+            ]);
+
+
+                $user = UserDVBC::where('username', '=', strtolower($request->input('username')))->first();
+                if ($user === null) {
+                    $user = UserDVBC::create([
+                        'name' => trim($request->input('name')),
+                        'username' => strtolower($request->input('username')),
+                        'email' => strtolower($request->input('email')),
+                        'password' => bcrypt($request->input('password')),
+                        'phone' => trim($request->input('phone')),
+                        'address' => trim($request->input('address')),
+                        'id_dvbc' => (int)trim($request->id_dvbc),
+                    ]);
+                    session()->flash('success', 'Your account is created');
+                    return Redirect::to("/users-dvbc");
+
+                }
+                return redirect()->back()->with('error', 'username already exists');   
+                
+    
         }
-        $data =  $query->orderby("id")->select("*") -> get();
-        return view('/user/timuser') -> with("data",$data);
-
-    }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        else{
+            $dvbc = DVBC::all();
+            return view('user.dvbc.register', compact('dvbc'));
+        }
+       
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function delete_dvbc($id)
     {
-        //
+        $userDelete = UserDVBC::find($id);
+        $userDelete->delete();
+
+        return redirect('/users-dvbc');
+        alert('Đã xóa thành công minh chứng');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

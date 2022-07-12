@@ -25,7 +25,7 @@ class MinhchungcsgdController extends Controller
         ->orderby("minhchung.id", "ASC");
         
         $data = $query->paginate(50);
-        
+        dd($data);
         return view('/minhchungcsgd/minhchungcsgd',$data);
     }
 
@@ -74,6 +74,9 @@ class MinhchungcsgdController extends Controller
 
             return Redirect::to("/minhchungcsgd");
         }
+
+        $dvbc = Auth::user()->id_dvbc;
+        dd($dvbc);
         return view('/minhchungcsgd/themminhchungcsgd');
     }
 

@@ -17,7 +17,7 @@ class UserDVBC extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'username', 'email', 'password', 'id_dvbc', 'address', 'phone'
     ];
 
     /**
