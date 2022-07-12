@@ -10,7 +10,7 @@
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" type="text/css" href="{{ asset('css/admin.css')}}">
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/font-awesome/css/font-awesome.min.css')}}">
   <!-- Ionicons -->

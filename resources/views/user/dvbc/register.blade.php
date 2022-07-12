@@ -14,7 +14,7 @@
                 </div>
                 @endif
                 <div class="card-body">
-                    <form method="POST" action="{{ route('create-hddg') }}">
+                    <form method="POST" action="{{ route('create-dvbc') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -47,9 +47,6 @@
                                 @enderror
                             </div>
                         </div>
-
-
-
 
                         <div class="row mb-3">
                             <label for="email"
@@ -107,19 +104,20 @@
                             <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control" name="address">
+                                <input id="address" type="text" class="form-control" name="address" required>
                             </div>
                         </div>
 
 
                         <div class="row mb-3">
-                            <label for="permission"
-                                class="col-md-4 col-form-label text-md-end">{{ __('Permission') }}</label>
+                            <label for="id_dvbc"
+                                class="col-md-4 col-form-label text-md-end">{{ __('DVBC') }}</label>
 
                             <div class="col-md-6">
-                                <select name="permission" id="permission">
-                                    <option value="mod">MOD</option>
-                                    <option value="admin">ADMIN</option>
+                                <select name="id_dvbc" id="id_dvbc">
+                                    @foreach ($dvbc as $item)
+                                        <option value="{{$item->id}}">{{$item->ten_dvbc}}</option>
+                                    @endforeach
                                 </select>
                             </div>
 

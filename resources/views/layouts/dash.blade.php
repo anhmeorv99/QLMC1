@@ -257,7 +257,7 @@
     </section>
     <!-- /.sidebar -->
   </aside>
-
+  
   <!-- Content Wrapper. Contains page content -->
   @yield('section')
 </div>
