@@ -20,7 +20,7 @@ class EmpController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $link = "https://upload.wikimedia.org/wikipedia/commons/0/06/Tr%C3%BAc_Anh_%E2%80%93_M%E1%BA%AFt_bi%E1%BA%BFc_BTS_%282%29.png";
-                    $is_pdf = '<embed src="https://iq.opengenus.org/resume/0924.pdf"
+                    $is_pdf = '<embed src="https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf"
                                 type="application/pdf" style="height: 700px;width: -webkit-fill-available"/>';
                      
                     $actionBtn ='<div class="text-center">
