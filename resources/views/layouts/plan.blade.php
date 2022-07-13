@@ -20,8 +20,6 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/skins/_all-skins.min.css')}}">
-  <!-- Morris chart -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/morris.js/morris.css')}}">
   <!-- jvectormap -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/jvectormap/jquery-jvectormap.css')}}">
   <!-- Date Picker -->
@@ -34,9 +32,7 @@
   
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-<link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
@@ -53,13 +49,12 @@
 <body class="hold-transition skin-blue sidebar-mini">
 @yield('body')
 <!-- ./wrapper -->
+<!-- <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script> -->
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="{{ asset('https://www.gstatic.com/charts/loader.js')}}"></script>
-<!-- jQuery 3 -->
-<script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('AdminLTE/bower_components/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -68,16 +63,8 @@
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-<!-- Morris.js charts -->
 <script src="{{ asset('AdminLTE/bower_components/raphael/raphael.min.js')}}"></script>
-<script src="{{ asset('AdminLTE/bower_components/morris.js/morris.min.js')}}"></script>
 <!-- Sparkline -->
-<script src="{{ asset('AdminLTE/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js')}}"></script>
-<!-- jvectormap -->
-<script src="{{ asset('AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js')}}"></script>
-<script src="{{ asset('AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ asset('AdminLTE/bower_components/jquery-knob/dist/jquery.knob.min.js')}}"></script>
 <!-- daterangepicker -->
 <script src="{{ asset('AdminLTE/bower_components/moment/min/moment.min.js')}}"></script>
 <script src="{{ asset('AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
@@ -91,9 +78,6 @@
 <script src="{{ asset('AdminLTE/bower_components/fastclick/lib/fastclick.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js')}}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('AdminLTE/dist/js/pages/dashboard.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
 <script src="{{ asset('AdminLTE/dist/js/demo.js')}}"></script>
 <!-- CK Editor -->
 <script src="{{ asset('AdminLTE/bower_components/ckeditor/ckeditor.js')}}"></script>
@@ -101,12 +85,8 @@
 <script src="{{ asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
 
+@stack('scripts')
 </body>
 </html>
