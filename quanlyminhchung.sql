@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 11, 2022 lúc 03:59 PM
+-- Thời gian đã tạo: Th7 13, 2022 lúc 06:26 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.29
 
@@ -31,7 +31,7 @@ CREATE TABLE `baocao` (
   `id` int(11) NOT NULL,
   `ten_bao_cao` varchar(255) NOT NULL,
   `noi_dung` text DEFAULT NULL,
-  `id_DVBC` int(11) NOT NULL,
+  `id_dvbc` int(11) NOT NULL,
   `kieu_bao_cao` varchar(20) NOT NULL,
   `danh_gia` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -59,7 +59,7 @@ CREATE TABLE `chitietbaocao` (
 CREATE TABLE `ctdt` (
   `id` int(11) NOT NULL,
   `ten_ctdt` varchar(255) NOT NULL,
-  `id_DVBC` int(11) NOT NULL,
+  `id_dvbc` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -101,6 +101,7 @@ CREATE TABLE `minhchung` (
   `noi_dung` text DEFAULT NULL,
   `id_dvbc` int(11) NOT NULL,
   `id_ctct` int(11) DEFAULT NULL,
+  `id_tieu_chi` int(11) NOT NULL,
   `dia_diem_phat_hanh` varchar(255) NOT NULL,
   `ngay_phat_hanh` timestamp NOT NULL DEFAULT current_timestamp(),
   `ma_minh_chung` varchar(20) NOT NULL,
@@ -114,19 +115,14 @@ CREATE TABLE `minhchung` (
 -- Đang đổ dữ liệu cho bảng `minhchung`
 --
 
-INSERT INTO `minhchung` (`id`, `ten_minh_chung`, `kieu_minh_chung`, `noi_dung`, `id_dvbc`, `id_ctct`, `dia_diem_phat_hanh`, `ngay_phat_hanh`, `ma_minh_chung`, `file`, `hash_file`, `created_at`, `updated_at`) VALUES
-(1, 'hệ thống thông tin', 'ctdt', 'lý thuyết thông tin, truyền tin', 2, NULL, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
-(2, 'name1', 'ctdt', 'lý thuyết 1', 1, NULL, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
-(3, 'name2', 'csgd', 'lý thuyết 2', 2, NULL, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
-(4, 'name3', 'ctdt', 'lý thuyết 3', 2, NULL, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
-(5, 'name4', 'ctdt', 'lý thuyết 4', 3, NULL, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
-(6, 'name5', 'csgd', 'lý thuyết 5', 3, NULL, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
-(7, 'name6', 'csgd', 'lý thuyết 6', 1, NULL, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
-(8, 'name7', 'ctdt', 'lý thuyết 7', 1, NULL, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
-(9, 'name8', 'csgd', 'lý thuyết 8', 3, NULL, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
-(10, 'name9', 'csgd', 'lý thuyết 9', 2, NULL, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
-(11, 'name10', 'ctdt', 'lý thuyết 10', 2, NULL, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
-(12, 'name11', 'ctdt', 'lý thuyết 11', 2, NULL, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-11 06:00:10');
+INSERT INTO `minhchung` (`id`, `ten_minh_chung`, `kieu_minh_chung`, `noi_dung`, `id_dvbc`, `id_ctct`, `id_tieu_chi`, `dia_diem_phat_hanh`, `ngay_phat_hanh`, `ma_minh_chung`, `file`, `hash_file`, `created_at`, `updated_at`) VALUES
+(1, 'hệ thống thông tin', 'ctdt', 'lý thuyết thông tin, truyền tin', 2, NULL, 1, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-12 13:19:30'),
+(2, 'name1', 'ctdt', 'lý thuyết 1', 1, NULL, 1, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-12 13:19:34'),
+(3, 'name2', 'csgd', 'lý thuyết 2', 2, NULL, 1, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-12 13:19:36'),
+(4, 'name3', 'ctdt', 'lý thuyết 3', 2, NULL, 1, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-12 13:19:39'),
+(5, 'name4', 'ctdt', 'lý thuyết 4', 3, NULL, 2, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-12 13:19:40'),
+(6, 'name5', 'csgd', 'lý thuyết 5', 3, NULL, 2, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-12 13:19:42'),
+(7, 'name6', 'csgd', 'lý thuyết 6', 1, NULL, 3, 'Hà Nội', '2022-03-05 17:00:00', 'HTTT', 'xyz.jpg', ' ', '2022-07-11 06:00:10', '2022-07-12 13:19:45');
 
 -- --------------------------------------------------------
 
@@ -205,10 +201,17 @@ CREATE TABLE `userdvbc` (
   `email` varchar(255) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `address` text DEFAULT NULL,
-  `id_DVBC` int(11) NOT NULL,
+  `id_dvbc` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `userdvbc`
+--
+
+INSERT INTO `userdvbc` (`id`, `name`, `username`, `password`, `email`, `phone`, `address`, `id_dvbc`, `created_at`, `updated_at`) VALUES
+(2, 'hust', 'hust', '$2y$10$yjK66vhdAq4UAY/aPrwH2uxLivUGilpAIPl9Wc65qbAEK574exK3a', 'hust@gmail.com', '', 'Ha Noi', 1, '2022-07-12 07:34:43', '2022-07-12 07:34:43');
 
 -- --------------------------------------------------------
 
@@ -245,7 +248,8 @@ INSERT INTO `userhddg` (`id`, `name`, `username`, `password`, `email`, `phone`, 
 -- Chỉ mục cho bảng `baocao`
 --
 ALTER TABLE `baocao`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_dvbc` (`id_dvbc`);
 
 --
 -- Chỉ mục cho bảng `chitietbaocao`
@@ -260,7 +264,7 @@ ALTER TABLE `chitietbaocao`
 --
 ALTER TABLE `ctdt`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_ctdt` (`id_DVBC`);
+  ADD KEY `fk_ctdt` (`id_dvbc`);
 
 --
 -- Chỉ mục cho bảng `dvbc`
@@ -273,7 +277,8 @@ ALTER TABLE `dvbc`
 --
 ALTER TABLE `minhchung`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_minhchung_1` (`id_dvbc`);
+  ADD KEY `fk_minhchung_1` (`id_dvbc`),
+  ADD KEY `fk_tieu_chi_1` (`id_tieu_chi`);
 
 --
 -- Chỉ mục cho bảng `tieuchi`
@@ -293,7 +298,7 @@ ALTER TABLE `tieuchuan`
 --
 ALTER TABLE `userdvbc`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_report_ei` (`id_DVBC`);
+  ADD KEY `fk_report_ei` (`id_dvbc`);
 
 --
 -- Chỉ mục cho bảng `userhddg`
@@ -346,7 +351,7 @@ ALTER TABLE `tieuchuan`
 -- AUTO_INCREMENT cho bảng `userdvbc`
 --
 ALTER TABLE `userdvbc`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `userhddg`
@@ -357,6 +362,12 @@ ALTER TABLE `userhddg`
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
+
+--
+-- Các ràng buộc cho bảng `baocao`
+--
+ALTER TABLE `baocao`
+  ADD CONSTRAINT `fk_dvbc` FOREIGN KEY (`id_dvbc`) REFERENCES `dvbc` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Các ràng buộc cho bảng `chitietbaocao`
@@ -376,7 +387,8 @@ ALTER TABLE `ctdt`
 -- Các ràng buộc cho bảng `minhchung`
 --
 ALTER TABLE `minhchung`
-  ADD CONSTRAINT `fk_minhchung_1` FOREIGN KEY (`id_dvbc`) REFERENCES `dvbc` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_minhchung_1` FOREIGN KEY (`id_dvbc`) REFERENCES `dvbc` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tieu_chi_1` FOREIGN KEY (`id_tieu_chi`) REFERENCES `tieuchi` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Các ràng buộc cho bảng `tieuchi`
