@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MinhchungcsgdController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TieuchuanController;
+use App\Http\Controllers\TieuchiController;
 // use App\Http\Controllers\TieuchuancsgdController;
 // use App\Http\Controllers\BaocaocsgdController;
 use App\Http\Controllers\EmpController;
@@ -50,7 +51,7 @@ Route::group([] ,function(){
 
 	Route::get('/tieuchuan', [TieuchuanController::class, 'index'])->name('tieuchuan');
 	Route::delete('/tieuchuan/delete', [TieuchuanController::class, 'delete'])->name('delete-tieuchuan');
-	Route::match(['get', 'post'],'/tieuchuam/create', [TieuchuanController::class, 'create'])->name('create-tieuchuan');
+	Route::match(['get', 'post'],'/tieuchuan/create', [TieuchuanController::class, 'create'])->name('create-tieuchuan');
 	Route::post('/tieuchuan/update', [TieuchuanController::class, 'update'])->name('update-tieuchuan');
 	// Route::match(['get', 'post'],'/timtieuchuancsgd', 'TieuchuancsgdController@search')->name('timtieuchuancsgd');
 	// Route::match(['get', 'post'],'/themtieuchuancsgd', 'TieuchuancsgdController@add')->name('themtieuchuancsgd');
@@ -77,6 +78,12 @@ Route::group([] ,function(){
 // 	Route::match(['get', 'post'],'/suaminhchungctdt/{id}', 'MinhchungctdtController@edit')->name('suaminhchungctdt');
 // 	Route::get('/xoaminhchungctdt/{id}', 'MinhchungctdtController@delete');
 // 	Route::match(['get', 'post'],'/timminhchungctdt', 'MinhchungctdtController@search')->name('timminhchungctdt');
+
+Route::get('/tieuchi', [TieuchiController::class, 'index'])->name('tieuchi');
+Route::delete('/tieuchi/delete', [TieuchiController::class, 'delete'])->name('delete-tieuchi');
+Route::match(['get', 'post'],'/tieuchuam/create', [TieuchiController::class, 'create'])->name('create-tieuchi');
+Route::post('/tieuchi/update', [TieuchiController::class, 'update'])->name('update-tieuchi');
+
 
 // 	Route::get('/tieuchi', 'TieuchiController@index')->name('tieuchi');
 // /*	Route::match(['get', 'post'],'/themtieuchi', 'TieuchiController@create')->name('themtieuchi');

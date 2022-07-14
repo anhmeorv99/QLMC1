@@ -1,92 +1,96 @@
 <?php
 
 namespace App\Http\Controllers;
-use DB;
+
+use App\Models\TieuChi as ModelsTieuChi;
 use App\Tieuchi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
+use DB;
 
 class TieuchiController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
+     */
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        $query = DB::table("tieuchis");
-        $query = $query->orderby("id");
-        $query = $query->select("*");
-        $data = $query->paginate(100); 
-    //    $tieuchuans = DB::table('tieuchuans')->get();
-        return view('/tieuchi/tieuchi',$data);
+        $data = [];
+        $list = ModelsTieuChi::orderby("id", "asc")->get();
+        $data['list'] = $list;
+        return view('tieuchi.tieuchi', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function add(Request $request)
     {
+        if ($request->isMethod('post')) {
+            $tentieuchi = $request->input("tentieuchi");
+            $cap_id = $request->input("cap_id");
+            $tieuchi = new Tieuchi();
+            $tieuchi->cap_id = $cap_id;
+            $tieuchi->tentieuchi = $tentieuchi;
+            $tieuchi->save();
+            return Redirect::to("/tieuchi");
+        }
         return view('/tieuchi/themtieuchi');
     }
-    public function danhgia(){
-        return view('/tieuchi/danhgiatieuchi');
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function delete(Request $request)
     {
-        //
+        $tieuChiDelete = ModelsTieuChi::find($request->id);
+        $tieuChiDelete->delete();
+
+        // return redirect('/users-hddg');
+        // alert('Đã xóa thành công minh chứng');
+        return new JsonResponse(['status' => 'success', 'message' => 'Đã xóa thành công tiêu chuẩn'], 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function create(Request $request)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255|in:CSGD,CTDT',
+        ]);
+        if ($validator->fails()) {
+            return new JsonResponse(['errors' => $validator->getMessageBag()->toArray()], 406);
+        } else {
+            $tieuchi = ModelsTieuChi::create([
+                'ten_tieu_chuan' => trim($request->input('name')),
+                'loai_tieu_chuan' => trim($request['type']),
+                'noi_dung' => trim($request->input('content')),
+            ]);
+            return new JsonResponse($tieuchi, 200);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(Request $request)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255|in:CSGD,CTDT',
+            'id' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            return new JsonResponse(['errors' => $validator->getMessageBag()->toArray()], 406);
+        } else {
+            $tieuchi = ModelsTieuChi::find($request->input('id'));
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            $tieuchi->ten_tieu_chuan = trim($request->input('name'));
+            $tieuchi->loai_tieu_chuan = trim($request->input('type'));
+            $tieuchi->noi_dung = trim($request->input('content'));
+            $tieuchi->save();
+            return new JsonResponse($tieuchi, 200);
+        }
     }
 }
