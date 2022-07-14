@@ -239,7 +239,7 @@ $("#btn-submit-detail").on("click", function() {
                     data.id + ')"><i class="bi bi-pencil-square"></i></button>' +
                     '<button class="btn btn-danger mx-1" onclick="deleteFunc(' +
                     data.id + ')"><i class="bi bi-trash3"></i></button>'
-                ]).draw(false).node();
+                ]).draw(false).node().id = 'row_' + data.id;
 
             } else {
                 let row = table.row('#row_' + data.id);

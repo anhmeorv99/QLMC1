@@ -410,3 +410,17 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+UPDATE `quanlyminhchung`.`tieuchi` SET `loai_tieu_chi` = 'CTDT' WHERE (`id` = '5');
+UPDATE `quanlyminhchung`.`tieuchi` SET `loai_tieu_chi` = 'CTDT' WHERE (`id` = '9');
+UPDATE `quanlyminhchung`.`tieuchi` SET `loai_tieu_chi` = 'CTDT' WHERE (`id` = '10');
+UPDATE `quanlyminhchung`.`tieuchi` SET `loai_tieu_chi` = 'CSGD' WHERE (`id` = '3');
+UPDATE `quanlyminhchung`.`tieuchi` SET `loai_tieu_chi` = 'CSGD' WHERE (`id` = '4');
+UPDATE `quanlyminhchung`.`tieuchi` SET `loai_tieu_chi` = 'CSGD' WHERE (`id` = '6');
+UPDATE `quanlyminhchung`.`tieuchi` SET `loai_tieu_chi` = 'CSGD' WHERE (`id` = '7');
+UPDATE `quanlyminhchung`.`tieuchi` SET `loai_tieu_chi` = 'CSGD' WHERE (`id` = '8');
+
+
+ALTER TABLE `quanlyminhchung`.`tieuchuan` 
+ADD COLUMN `deleted_at` VARCHAR(45) NULL AFTER `updated_at`;

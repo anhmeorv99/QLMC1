@@ -18,14 +18,14 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="image/avatar.png" class="user-image" alt="User">
-              {{--<span class="hidden-xs">{{ Auth::user()->name }}</span> --}} 
-          <!-- comment hear -->
+              {{--<span class="hidden-xs">{{ Auth::user()->name }}</span> --}}
+              <!-- comment hear -->
 
             </a>
-            <ul class="dropdown-menu" style="background-color: #F1F1F1; width:50%;" >
+            <ul class="dropdown-menu" style="background-color: #F1F1F1; width:50%;">
               <li class="user-footer" style="background-color: #F1F1F1; width: 60%;margin-left: 50px;">
                 <div class="pull-right">
-                  <a href="{{ route('logout') }}"  class="btn btn-default btn-flat">Đăng Xuất</a>
+                  <a href="{{ route('logout') }}" class="btn btn-default btn-flat">Đăng Xuất</a>
                 </div>
               </li>
             </ul>
@@ -44,7 +44,7 @@
           <img src="image/avatar.png" class="img-circle" alt="User">
         </div>
         <div class="pull-left info">
-          {{-- <p>{{ Auth::user()->name }}</p> --}} 
+          {{-- <p>{{ Auth::user()->name }}</p> --}}
           <!-- comment hear -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -54,9 +54,9 @@
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
           <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
+            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+            </button>
+          </span>
         </div>
       </form>
       <!-- /.search form -->
@@ -64,7 +64,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">TÙY CHỌN QUẢN LÝ</li>
         <!-- quản lý minh chứng -->
-     <!--   <li class="active treeview">
+        <!--   <li class="active treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
             <span>Minh Chứng</span>
@@ -118,7 +118,7 @@
         </li>
         <!-- /.quản lý minh chứng -->
         <!-- quản lý tiêu chuẩn -->
-   <!--     <li class="treeview">
+        <!--     <li class="treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Tiêu Chuẩn</span>
           </a>
@@ -127,47 +127,14 @@
             <li><a href="{{url('/themtieuchuan')}}"><i class="fa fa-circle-o"></i> Thêm Tiêu Chuẩn</a></li>
           </ul>
         </li> -->
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="{{ url('/tieuchuan')}}">
             <i class="fa fa-share"></i> <span>Tiêu Chuẩn</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Tiêu Chuẩn - CSGD
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{url('/tieuchuancsgd')}}"><i class="fa fa-circle-o"></i> Danh Sách Tiêu Chuẩn </a></li>
-                <li><a href="{{url('/timtieuchuancsgd')}}"><i class="fa fa-circle-o"></i> Tìm Kiếm Tiêu Chuẩn</a></li>
-          <!--      <li>
-                  <a href="{{url('/themtieuchuancsgd')}}"><i class="fa fa-circle-o"></i> Thêm Tiêu Chuẩn </a>
-                </li> -->
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Tiêu Chuẩn - CTDT
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{url('/tieuchuanctdt')}}"><i class="fa fa-circle-o"></i> Danh Sách Tiêu Chuẩn </a></li>
-                <li><a href="{{url('/timtieuchuanctdt')}}"><i class="fa fa-circle-o"></i> Tìm Kiếm Tiêu Chuẩn</a></li>
-              <!--  <li>
-                  <a href="{{url('/themtieuchuanctdt')}}"><i class="fa fa-circle-o"></i> Thêm Tiêu Chuẩn </a>
-                </li> -->
-              </ul>
-            </li>
-          </ul>
         </li>
         <!-- /.quản lý tiêu chuẩn -->
         <!-- quản lý tiêu chí -->
-  <!--      <li class="treeview">
+        <!--      <li class="treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Tiêu Chí</span>
           </a>
@@ -177,37 +144,10 @@
             <li><a href="{{url('/danhgiatieuchi')}}"><i class="fa fa-circle-o"></i> Đánh giá tiêu chí</a></li>
           </ul>
         </li> -->
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="{{ url('/tieuchi')}}">
             <i class="fa fa-share"></i> <span>Tiêu Chí</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Tiêu Chí - CSGD
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{url('/tieuchicsgd')}}"><i class="fa fa-circle-o"></i> Danh Sách Tiêu Chí </a></li>
-                <li><a href="{{url('/timtieuchicsgd')}}"><i class="fa fa-circle-o"></i> Tìm Kiếm Tiêu Chí</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Tiêu Chí - CTDT
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{url('/tieuchictdt')}}"><i class="fa fa-circle-o"></i> Danh Sách Tiêu Chí </a></li>
-                <li><a href="{{url('/timtieuchictdt')}}"><i class="fa fa-circle-o"></i> Tìm Kiếm Tiêu Chí</a></li>
-              </ul>
-            </li>
-          </ul>
         </li>
         <!-- /.quản lý tiêu chí -->
         <!-- quản lý báo cáo -->
@@ -257,7 +197,7 @@
     </section>
     <!-- /.sidebar -->
   </aside>
-  
+
   <!-- Content Wrapper. Contains page content -->
   @yield('section')
 </div>

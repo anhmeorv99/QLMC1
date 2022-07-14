@@ -5,8 +5,9 @@ use App\Http\Controllers\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MinhchungcsgdController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\TieuchuancsgdController;
-use App\Http\Controllers\BaocaocsgdController;
+use App\Http\Controllers\TieuchuanController;
+// use App\Http\Controllers\TieuchuancsgdController;
+// use App\Http\Controllers\BaocaocsgdController;
 use App\Http\Controllers\EmpController;
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,14 @@ Route::group([] ,function(){
 	// Route::get('/tieuchuan', 'TieuchuanController@index')->name('tieuchuan');
  	// Route::match(['get', 'post'],'/themtieuchuan', 'TieuchuanController@add')->name('themtieuchuan');
 
+	Route::get('/tieuchuan', [TieuchuanController::class, 'index'])->name('tieuchuan');
+	Route::delete('/tieuchuan/delete', [TieuchuanController::class, 'delete'])->name('delete-tieuchuan');
+	Route::match(['get', 'post'],'/tieuchuam/create', [TieuchuanController::class, 'create'])->name('create-tieuchuan');
+	Route::post('/tieuchuan/update', [TieuchuanController::class, 'update'])->name('update-tieuchuan');
+	// Route::match(['get', 'post'],'/timtieuchuancsgd', 'TieuchuancsgdController@search')->name('timtieuchuancsgd');
+	// Route::match(['get', 'post'],'/themtieuchuancsgd', 'TieuchuancsgdController@add')->name('themtieuchuancsgd');
+
+
 	// Route::get('/tieuchuancsgd', [TieuchuancsgdController::class, 'index'])->name('tieuchuancsgd');
 	// Route::match(['get', 'post'],'/timtieuchuancsgd', 'TieuchuancsgdController@search')->name('timtieuchuancsgd');
 	// Route::match(['get', 'post'],'/themtieuchuancsgd', 'TieuchuancsgdController@add')->name('themtieuchuancsgd');
@@ -60,7 +69,7 @@ Route::group([] ,function(){
 	Route::get('/minhchungcsgd', [MinhchungcsgdController::class, 'index'])->name('minhchungcsgd')->middleware('can:admin');
 	Route::match(['get', 'post'],'/themminhchungcsgd', [MinhchungcsgdController::class, 'create'])->name('themminhchungcsgd');
 	Route::match(['get', 'post'],'/suaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'edit'])->name('suaminhchungcsgd');
-	Route::get('/xoaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'delete']);
+	Route::get('/xoaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'delete'])->middleware('can:admin');;
 	Route::match(['get', 'post'],'/timminhchungcsgd', [MinhchungcsgdController::class, 'search'])->name('timminhchungcsgd');
 
 // 	Route::get('/minhchungctdt', 'MinhchungctdtController@index')->name('minhchungctdt');
