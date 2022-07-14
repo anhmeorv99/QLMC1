@@ -28,7 +28,7 @@ class UserController extends Controller
     public function index_hddg()
     {
         $data = [];
-        $list = UserHDDG::where("permission", "!=", "admin")->orderby("id", "desc")->get();
+        $list = UserHDDG::where("permission", "!=", "admin")->orderby("id", "asc")->get();
         $data['list']= $list;
         return view('user.hddg.users', $data);
     }
@@ -127,13 +127,13 @@ class UserController extends Controller
             if($user->username != $request->input('username')){
                 $checkUserName = UserHDDG::where('username', '=', strtolower($request->input('username')))->count();
                 if($checkUserName >0){
-                    return new JsonResponse(['errors'=>['username'=>'username not exists']], 406);
+                    return new JsonResponse(['errors'=>['username'=>'username exists']], 406);
                 }
             }
             if($user->email != $request->input('email')){
-                $checkEmail = UserHDDG::where('email', '=', strtolower($request->input('email')))->first();
-                if($checkEmail == null){
-                    return new JsonResponse(['errors'=>['email'=>'email not exists']], 406);
+                $checkEmail = UserHDDG::where('email', '=', strtolower($request->input('email')))->count();
+                if($checkEmail > 0){
+                    return new JsonResponse(['errors'=>['email'=>'email exists']], 406);
                 }
             }
 
