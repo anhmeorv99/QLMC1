@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header d-flex justify-content-between px-5">
         <h1>
-            Danh Sách Minh Chứng CSGD
+            Danh Sách Tài Khoản CSGD
         </h1>
         <a href="#" class="btn btn-primary" style="margin-right: 15px;" id="add_user"> <i
                 class="bi bi-person-plus-fill"></i></a>

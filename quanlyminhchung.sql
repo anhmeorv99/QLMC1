@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 13, 2022 lúc 06:26 AM
+-- Thời gian đã tạo: Th7 14, 2022 lúc 07:31 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.29
 
@@ -145,8 +145,8 @@ CREATE TABLE `tieuchi` (
 --
 
 INSERT INTO `tieuchi` (`id`, `ten_tieu_chi`, `loai_tieu_chi`, `id_tieu_chuan`, `noi_dung`, `created_at`, `updated_at`) VALUES
-(1, 'tiêu chí 1', 'loại 1', 2, 'nội dung tiêu chí 1', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
-(2, 'tiêu chí 2', 'loại 3', 3, 'nội dung tiêu chí 2', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
+(1, 'tiêu chí 1', 'CSGD', 2, 'nội dung tiêu chí 1', '2022-07-11 06:00:10', '2022-07-14 05:28:27'),
+(2, 'tiêu chí 2', 'CTDT', 3, 'nội dung tiêu chí 2', '2022-07-11 06:00:10', '2022-07-14 05:28:43'),
 (3, 'tiêu chí 3', 'loại 2', 1, 'nội dung tiêu chí 3', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
 (4, 'tiêu chí 4', 'loại 1', 5, 'nội dung tiêu chí 4', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
 (5, 'tiêu chí 5', 'loại 4', 2, 'nội dung tiêu chí 5', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
@@ -178,7 +178,7 @@ CREATE TABLE `tieuchuan` (
 INSERT INTO `tieuchuan` (`id`, `ten_tieu_chuan`, `noi_dung`, `loai_tieu_chuan`, `created_at`, `updated_at`) VALUES
 (1, 'tiêu chuẩn 1', 'nội dung tiêu chuẩn 1', 'CSGD', '2022-07-11 06:00:10', '2022-07-11 13:36:15'),
 (2, 'tiêu chuẩn 2', 'nội dung tiêu chuẩn 2', 'CTDT', '2022-07-11 06:00:10', '2022-07-11 13:36:20'),
-(3, 'tiêu chuẩn 3', 'nội dung tiêu chuẩn 3', 'loại 1', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
+(3, 'tiêu chuẩn 3', 'nội dung tiêu chuẩn 3', 'CSGD', '2022-07-11 06:00:10', '2022-07-14 05:26:12'),
 (4, 'tiêu chuẩn 4', 'nội dung tiêu chuẩn 4', 'loại 1', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
 (5, 'tiêu chuẩn 5', 'nội dung tiêu chuẩn 5', 'loại 3', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
 (6, 'tiêu chuẩn 6', 'nội dung tiêu chuẩn 6', 'loại 2', '2022-07-11 06:00:10', '2022-07-11 06:00:10'),
@@ -238,7 +238,11 @@ CREATE TABLE `userhddg` (
 
 INSERT INTO `userhddg` (`id`, `name`, `username`, `password`, `email`, `phone`, `address`, `permission`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin', '$2y$10$7fglZ2yz6idUz96dMHVmveyyrjCxD9mxGmqX5q.feknWKzopP.Cny', 'anh.nt060699@gmail.com', NULL, NULL, 'admin', '2022-07-10 23:02:42', '2022-07-11 06:31:12'),
-(20, 'mod', 'mod01', '$2y$10$IPNMDD18PqhLoJXLrMtrDe6Py2Kg/KxNzYfU0EtMSDRptPXvSU6eS', 'mod01@gmail.com', NULL, 'Ha Noi', 'mod', '2022-07-11 01:48:33', '2022-07-11 01:48:33');
+(29, 'mod', 'dsa11112', '$2y$10$J3bLRVvuGvE18zYAsw0DZOz1HN5RjYNd8xuyXpdDfYDGG0byc15UW', '123@gmail.com', '121212', '', 'mod', '2022-07-13 09:49:58', '2022-07-13 21:51:15'),
+(30, 'hello ae', 'hello', '$2y$10$vgKrgu3nduzoxlG1773lcOp7Qidpv6S0BzER8OZIRWjNgpmbhfYfS', 'helloae@gmail.com', NULL, '', 'mod', '2022-07-13 09:52:00', '2022-07-13 09:52:00'),
+(31, 'hehehe', 'modxxx', '$2y$10$n4L0pDg38R0w2ePZGuJeB.PuWvSmD.8m5niFc5fbwJcfHl189WDWi', 'mox@gmail.com', NULL, '', 'mod', '2022-07-13 09:56:16', '2022-07-13 09:56:16'),
+(32, 'asdsadsa12', 'sadsa12dsad', '$2y$10$eVtkM71kaSLommY3DVYqme3c/tMD2HVq87EC0tDH.eVrTJgUzG6d.', 'sadsadsa@gmail.com', '', '', 'mod', '2022-07-13 09:57:33', '2022-07-13 21:59:42'),
+(40, 'asdsadsa123', 'sadsa112dsad', '$2y$10$5nkgOrvVioqnDtsxonV30.WJPCBGbgMv30Yru2l2/Ma8GhA7nyXRm', 'sadsads1a@gmail.com', NULL, '', 'mod', '2022-07-13 22:00:01', '2022-07-13 22:00:01');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -357,7 +361,7 @@ ALTER TABLE `userdvbc`
 -- AUTO_INCREMENT cho bảng `userhddg`
 --
 ALTER TABLE `userhddg`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
