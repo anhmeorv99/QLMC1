@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MinhchungcsgdController;
+use App\Http\Controllers\MinhChungController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TieuchuanController;
 use App\Http\Controllers\TieuchiController;
@@ -72,6 +73,14 @@ Route::group([] ,function(){
 	Route::match(['get', 'post'],'/suaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'edit'])->name('suaminhchungcsgd');
 	Route::get('/xoaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'delete'])->middleware('can:admin');;
 	Route::match(['get', 'post'],'/timminhchungcsgd', [MinhchungcsgdController::class, 'search'])->name('timminhchungcsgd');
+
+	Route::prefix("minh-chung")->name("minhchung.")->group(function(){
+		Route::get('/', [MinhChungController::class, 'showCategory'])->name('show-tieu-chuan');
+		Route::get('/get-tieuchi/{id}', [MinhChungController::class, 'getTieuChi'])->name('get-tieu-chi');
+		Route::get('/tieu-chi-{id}', [MinhChungController::class, 'showListMinhChung'])->name('showListMinhChung');
+		Route::get('/minh-chung-{id}', [MinhChungController::class, 'showMinhChung'])->name('showMinhChung');
+	});
+
 
 // 	Route::get('/minhchungctdt', 'MinhchungctdtController@index')->name('minhchungctdt');
 // 	Route::match(['get', 'post'],'/themminhchungctdt', 'MinhchungctdtController@create')->name('themminhchungctdt');

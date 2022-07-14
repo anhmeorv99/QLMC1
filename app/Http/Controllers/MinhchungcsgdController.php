@@ -23,7 +23,7 @@ class MinhchungcsgdController extends Controller
             $leftJoin->on('minhchung.id_dvbc', '=', 'dvbc.id');
         })->where('minhchung.kieu_minh_chung', '=', 'csgd')
         ->orderby("minhchung.id", "ASC");
-        
+
         $data = $query->paginate(50);
         return view('/minhchungcsgd/minhchungcsgd',$data);
     }
@@ -74,8 +74,7 @@ class MinhchungcsgdController extends Controller
             return Redirect::to("/minhchungcsgd");
         }
 
-        $dvbc = Auth::user()->id_dvbc;
-        dd($dvbc);
+        $dvbc = \Auth::user()->id_dvbc;
         return view('/minhchungcsgd/themminhchungcsgd');
     }
 
