@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 Route::namespace('App\Http\Controllers\Auth')->group(function () {
 	Route::get('/login', 'LoginController@show_login_form')->name('login');
-	Route::post('/login', 'LoginController@process_login')->name('login');
+	Route::post('/login', 'LoginController@process_login')->name('post-login');
 	Route::get('/register', 'LoginController@show_signup_form')->name('register')->middleware('can:admin');
 	Route::post('/register', 'LoginController@process_signup')->middleware('can:admin');
 	Route::get('/logout', 'LoginController@logout')->name('logout');
@@ -44,12 +44,12 @@ Route::group([] ,function(){
 // 	Route::get('/home', 'HomeController@index')->name('home');
 
 // 	Route::get('/nhomthuchien', 'HomeController@show')->name('nhomthuchien');
-	Route::get('/tieuchuan', 'TieuchuanController@index')->name('tieuchuan');
- 	Route::match(['get', 'post'],'/themtieuchuan', 'TieuchuanController@add')->name('themtieuchuan');
+	// Route::get('/tieuchuan', 'TieuchuanController@index')->name('tieuchuan');
+ 	// Route::match(['get', 'post'],'/themtieuchuan', 'TieuchuanController@add')->name('themtieuchuan');
 
-	Route::get('/tieuchuancsgd', [TieuchuancsgdController::class, 'index'])->name('tieuchuancsgd');
-	Route::match(['get', 'post'],'/timtieuchuancsgd', 'TieuchuancsgdController@search')->name('timtieuchuancsgd');
-	Route::match(['get', 'post'],'/themtieuchuancsgd', 'TieuchuancsgdController@add')->name('themtieuchuancsgd');
+	// Route::get('/tieuchuancsgd', [TieuchuancsgdController::class, 'index'])->name('tieuchuancsgd');
+	// Route::match(['get', 'post'],'/timtieuchuancsgd', 'TieuchuancsgdController@search')->name('timtieuchuancsgd');
+	// Route::match(['get', 'post'],'/themtieuchuancsgd', 'TieuchuancsgdController@add')->name('themtieuchuancsgd');
 
 
 // 	Route::get('/tieuchuanctdt', 'TieuchuanctdtController@index')->name('tieuchuanctdt');
@@ -80,14 +80,14 @@ Route::group([] ,function(){
 // 	Route::get('/tieuchictdt', 'TieuchictdtController@index')->name('tieuchictdt');
 // 	Route::match(['get', 'post'],'/timtieuchictdt', 'TieuchictdtController@search')->name('timtieuchictdt');
 
-	Route::get('/danhsachbaocaocsgd', [BaocaocsgdController::class, 'index'])->name('danhsachbaocaocsgd');
-	Route::match(['get', 'post'],'/vietbaocaocsgd', [BaocaocsgdController::class, 'create'])->name('vietbaocaocsgd');
-	Route::match(['get', 'post'],'/suabaocaocsgd/{id}', 'BaocaocsgdController@edit')->name('suabaocaocsgd');
-	Route::get('/xoabaocaocsgd/{id}', 'BaocaocsgdController@delete');
-	Route::match(['get', 'post'],'/timbaocaocsgd', 'BaocaocsgdController@search')->name('timbaocaocsgd');
+	// Route::get('/danhsachbaocaocsgd', [BaocaocsgdController::class, 'index'])->name('danhsachbaocaocsgd');
+	// Route::match(['get', 'post'],'/vietbaocaocsgd', [BaocaocsgdController::class, 'create'])->name('vietbaocaocsgd');
+	// Route::match(['get', 'post'],'/suabaocaocsgd/{id}', 'BaocaocsgdController@edit')->name('suabaocaocsgd');
+	// Route::get('/xoabaocaocsgd/{id}', 'BaocaocsgdController@delete');
+	// Route::match(['get', 'post'],'/timbaocaocsgd', 'BaocaocsgdController@search')->name('timbaocaocsgd');
 
 	// Route::match(['get', 'post'],'/chonminhchungcsgd', 'MinhchungcsgdController@show')->name('chonminhchungcsgd');
-	Route::match(['get', 'post'],'/chontieuchuancsgd', 'TieuchuancsgdController@show')->name('chontieuchuancsgd');
+	// Route::match(['get', 'post'],'/chontieuchuancsgd', 'TieuchuancsgdController@show')->name('chontieuchuancsgd');
 // 	Route::match(['get', 'post'],'/chontieuchicsgd', 'TieuchicsgdController@show')->name('chonchicsgd');
 
 
@@ -102,12 +102,16 @@ Route::group([] ,function(){
 // 	Route::match(['get', 'post'],'/chontieuchictdt', 'TieuchictdtController@show')->name('chontieuchictdt');
 
 	Route::get('/users-hddg', [UserController::class, 'index_hddg'])->name('users-hddg')->middleware('can:admin');
-	Route::match(['get', 'post'],'/create-hddg', [UserController::class, 'create_hddg'])->name('create-hddg')->middleware('can:admin');
-	Route::get('/delete-hddg/{id}', [UserController::class, 'delete_hddg'])->middleware('can:admin');
+	Route::get('users-hddg/listing', [UserController::class, 'list_hddg'])->name('hddg.listing');
+	Route::match(['get', 'post'],'/create-hddg', [UserController::class, 'create_hddg'])->name('add-user-hddg')->middleware('can:admin');
+	Route::post('edit-hddg', [UserController::class, 'update_hddg'])->name('edit-user-hddg')->middleware('can:admin');
+	Route::delete('/delete-hddg', [UserController::class, 'delete_hddg'])->name('delete-user-hddg')->middleware('can:admin');
 
-	Route::get('/users-dvbc', [UserController::class, 'index_dvbc'])->name('users-hddg')->middleware('can:admin');
+
+
+	Route::get('/users-dvbc', [UserController::class, 'index_dvbc'])->name('users-dvbc')->middleware('can:admin');
 	Route::match(['get', 'post'],'/create-dvbc', [UserController::class, 'create_dvbc'])->name('create-dvbc')->middleware('can:admin');
-	Route::get('/delete-hddg/{id}', [UserController::class, 'delete_dvbc'])->middleware('can:admin');
+	Route::get('/delete-dvbc/{id}', [UserController::class, 'delete_dvbc'])->middleware('can:admin');
 	
 // 	Route::match(['get', 'post'],'/suauser/{id}', 'UserController@edit')->name('suauser');
 // 	Route::match(['get', 'post'],'/timuser', 'UserController@search')->name('timuser');
