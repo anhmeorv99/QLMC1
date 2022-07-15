@@ -90,7 +90,7 @@ Route::group([] ,function(){
 
 Route::get('/tieuchi', [TieuchiController::class, 'index'])->name('tieuchi');
 Route::delete('/tieuchi/delete', [TieuchiController::class, 'delete'])->name('delete-tieuchi');
-Route::match(['get', 'post'],'/tieuchuam/create', [TieuchiController::class, 'create'])->name('create-tieuchi');
+Route::match(['get', 'post'],'/tieuchi/create', [TieuchiController::class, 'create'])->name('create-tieuchi');
 Route::post('/tieuchi/update', [TieuchiController::class, 'update'])->name('update-tieuchi');
 
 

@@ -6,7 +6,7 @@
     <h1>
       Danh Sách Tiêu Chuẩn
     </h1>
-    <a href="#" class="btn btn-primary" style="margin-right: 15px;" id="add_user"> <i class="bi bi-person-plus-fill"></i></a>
+    <a href="#" class="btn btn-primary" style="margin-right: 15px;" id="add_tieuchuan"> <i class="bi bi-person-plus-fill"></i></a>
   </section>
 
   <!-- Main content -->
@@ -17,9 +17,9 @@
       <thead>
         <tr>
           <th style="width:5%;">ID</th>
-          <th style="width:25%;">Tên Tiêu Chuẩn</th>
-          <th style="width:25%;">Loại tiêu chuẩn</th>
-          <th style="width:20%;">Nội dung</th>
+          <th style="width:20%;">Tên Tiêu Chuẩn</th>
+          <th style="width:15%;">Loại tiêu chuẩn</th>
+          <th style="width:30%;">Nội dung</th>
           <th style="width:10%;">Action</th>
         </tr>
       </thead>
@@ -139,12 +139,10 @@
     $("#modal_del").modal("show");
   }
 
-  $("#add_user").on("click", function() {
+  $("#add_tieuchuan").on("click", function() {
     $("#modal_detail").modal("show");
     $("#btn-submit-detail").text("Thêm");
     $("#modalLabelDetail").text("Thêm tiêu chuẩn");
-    $("#password").parent().show();
-    $("#password-confirm").parent().show();
     $("#btn-submit-detail").data('type', 'add');
   });
 

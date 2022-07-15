@@ -31,27 +31,11 @@ class TieuchuanController extends Controller
         return view('tieuchuan.tieuchuan', $data);
     }
 
-    public function add(Request $request)
-    {
-        if ($request->isMethod('post')) {
-            $tentieuchuan = $request->input("tentieuchuan");
-            $cap_id = $request->input("cap_id");
-            $tieuchuan = new Tieuchuan();
-            $tieuchuan->cap_id = $cap_id;
-            $tieuchuan->tentieuchuan = $tentieuchuan;
-            $tieuchuan->save();
-            return Redirect::to("/tieuchuan");
-        }
-        return view('/tieuchuan/themtieuchuan');
-    }
-
     public function delete(Request $request)
     {
         $tieuChuanDelete = ModelsTieuChuan::find($request->id);
         $tieuChuanDelete->delete();
 
-        // return redirect('/users-hddg');
-        // alert('Đã xóa thành công minh chứng');
         return new JsonResponse(['status' => 'success', 'message' => 'Đã xóa thành công tiêu chuẩn'], 200);
     }
 
