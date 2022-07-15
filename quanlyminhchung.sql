@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 15, 2022 lúc 06:14 AM
+-- Thời gian đã tạo: Th7 15, 2022 lúc 07:12 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.29
 
@@ -122,7 +122,9 @@ CREATE TABLE `tieuchi` (
 --
 
 INSERT INTO `tieuchi` (`id`, `ten_tieu_chi`, `id_tieu_chuan`, `noi_dung`, `created_at`, `updated_at`) VALUES
-(11, 'TC1', 11, 'OK', '2022-07-15 03:56:09', '2022-07-15 03:56:09');
+(12, 'Tiêu Chí 1', 13, '123', '2022-07-14 21:41:54', '2022-07-14 22:04:01'),
+(13, 'Hello', 13, '123', '2022-07-14 22:06:24', '2022-07-14 22:06:24'),
+(14, 'SuperAdmin', 13, '232', '2022-07-14 22:10:30', '2022-07-14 22:10:30');
 
 -- --------------------------------------------------------
 
@@ -144,7 +146,8 @@ CREATE TABLE `tieuchuan` (
 --
 
 INSERT INTO `tieuchuan` (`id`, `ten_tieu_chuan`, `loai_tieu_chuan`, `noi_dung`, `created_at`, `updated_at`) VALUES
-(11, 'OK', 'CSGD', 'OK', '2022-07-15 03:55:44', '2022-07-15 03:55:44');
+(13, 'Tiêu Chuẩn 1', 'CTDT', 'CSGD2', '2022-07-14 21:40:38', '2022-07-14 21:48:53'),
+(14, 'Tiêu Chuẩn 2', 'CTDT', 'OK', '2022-07-14 21:53:37', '2022-07-14 21:53:37');
 
 -- --------------------------------------------------------
 
@@ -200,7 +203,9 @@ INSERT INTO `userhddg` (`id`, `name`, `username`, `password`, `email`, `phone`, 
 (29, 'mod', 'dsa11112', '$2y$10$J3bLRVvuGvE18zYAsw0DZOz1HN5RjYNd8xuyXpdDfYDGG0byc15UW', '123@gmail.com', '121212', '', 'mod', '2022-07-13 09:49:58', '2022-07-13 21:51:15'),
 (30, 'hello ae', 'hello', '$2y$10$vgKrgu3nduzoxlG1773lcOp7Qidpv6S0BzER8OZIRWjNgpmbhfYfS', 'helloae@gmail.com', NULL, '', 'mod', '2022-07-13 09:52:00', '2022-07-13 09:52:00'),
 (31, 'hehehe', 'modxxx', '$2y$10$n4L0pDg38R0w2ePZGuJeB.PuWvSmD.8m5niFc5fbwJcfHl189WDWi', 'mox@gmail.com', NULL, '', 'mod', '2022-07-13 09:56:16', '2022-07-13 09:56:16'),
-(32, 'asdsadsa12', 'sadsa12dsad', '$2y$10$eVtkM71kaSLommY3DVYqme3c/tMD2HVq87EC0tDH.eVrTJgUzG6d.', 'sadsadsa@gmail.com', '', '', 'mod', '2022-07-13 09:57:33', '2022-07-13 21:59:42');
+(32, 'asdsadsa12', 'sadsa12dsad', '$2y$10$eVtkM71kaSLommY3DVYqme3c/tMD2HVq87EC0tDH.eVrTJgUzG6d.', 'sadsadsa@gmail.com', '', '', 'mod', '2022-07-13 09:57:33', '2022-07-13 21:59:42'),
+(41, 'Anh', 'anhh', '$2y$10$ywrHaDRQu3y3tBD7wzJb3Ok3dVJhhD1Q6.ds2HbX2Wmt9tfj4LQ2.', 'anh1@gmail.com', NULL, '', 'mod', '2022-07-14 22:02:11', '2022-07-14 22:02:11'),
+(42, 'Anh2', 'anh2', '$2y$10$GttVEKFjZCGsffKhLjBboOZUZyLfSqn53a2oVIscOonN/jVQh94G6', 'anh2@gmail.com', NULL, '', 'mod', '2022-07-14 22:04:53', '2022-07-14 22:04:53');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -294,13 +299,13 @@ ALTER TABLE `minhchung`
 -- AUTO_INCREMENT cho bảng `tieuchi`
 --
 ALTER TABLE `tieuchi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `tieuchuan`
 --
 ALTER TABLE `tieuchuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `userdvbc`
@@ -312,7 +317,7 @@ ALTER TABLE `userdvbc`
 -- AUTO_INCREMENT cho bảng `userhddg`
 --
 ALTER TABLE `userhddg`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
