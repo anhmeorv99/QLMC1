@@ -6,8 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MinhchungcsgdController;
 use App\Http\Controllers\MinhChungController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\TieuchuanController;
-use App\Http\Controllers\TieuchiController;
+use App\Http\Controllers\TieuChuanController;
+use App\Http\Controllers\TieuChiController;
 // use App\Http\Controllers\TieuchuancsgdController;
 // use App\Http\Controllers\BaocaocsgdController;
 use App\Http\Controllers\EmpController;
@@ -137,7 +137,7 @@ Route::post('/tieuchi/update', [TieuchiController::class, 'update'])->name('upda
 	Route::get('/users-dvbc', [UserController::class, 'index_dvbc'])->name('users-dvbc')->middleware('can:admin');
 	Route::match(['get', 'post'],'/create-dvbc', [UserController::class, 'create_dvbc'])->name('create-dvbc')->middleware('can:admin');
 	Route::get('/delete-dvbc/{id}', [UserController::class, 'delete_dvbc'])->middleware('can:admin');
-	
+
 // 	Route::match(['get', 'post'],'/suauser/{id}', 'UserController@edit')->name('suauser');
 // 	Route::match(['get', 'post'],'/timuser', 'UserController@search')->name('timuser');
 

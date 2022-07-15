@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TieuChuan as ModelsTieuChuan;
-use App\Tieuchuan;
+use App\Models\TieuChuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use DB;
 
-class TieuchuanController extends Controller
+class TieuChuanController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,14 +25,14 @@ class TieuchuanController extends Controller
     public function index()
     {
         $data = [];
-        $list = ModelsTieuChuan::orderby("id", "asc")->get();
+        $list = TieuChuan::orderby("id", "asc")->get();
         $data['list'] = $list;
         return view('tieuchuan.tieuchuan', $data);
     }
 
     public function delete(Request $request)
     {
-        $tieuChuanDelete = ModelsTieuChuan::find($request->id);
+        $tieuChuanDelete = TieuChuan::find($request->id);
         $tieuChuanDelete->delete();
 
         return new JsonResponse(['status' => 'success', 'message' => 'Đã xóa thành công tiêu chuẩn'], 200);
@@ -49,7 +48,7 @@ class TieuchuanController extends Controller
         if ($validator->fails()) {
             return new JsonResponse(['errors' => $validator->getMessageBag()->toArray()], 406);
         } else {
-            $tieuchuan = ModelsTieuChuan::create([
+            $tieuchuan = TieuChuan::create([
                 'ten_tieu_chuan' => trim($request->input('name')),
                 'loai_tieu_chuan' => trim($request['type']),
                 'noi_dung' => trim($request->input('content')),
@@ -68,7 +67,7 @@ class TieuchuanController extends Controller
         if ($validator->fails()) {
             return new JsonResponse(['errors' => $validator->getMessageBag()->toArray()], 406);
         } else {
-            $tieuchuan = ModelsTieuChuan::find($request->input('id'));
+            $tieuchuan = TieuChuan::find($request->input('id'));
 
             $tieuchuan->ten_tieu_chuan = trim($request->input('name'));
             $tieuchuan->loai_tieu_chuan = trim($request->input('type'));

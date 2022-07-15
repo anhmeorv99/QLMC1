@@ -18,19 +18,17 @@
         <tr>
           <th style="width:5%;">ID</th>
           <th style="width:20%;">Tên Tiêu Chí</th>
-          <th style="width:10%;">Loại tiêu chí</th>
           <th style="width:20%;">Tên tiêu chuẩn</th>
           <th style="width:30%;">Nội dung</th>
           <th style="width:10%;">Action</th>
         </tr>
       </thead>
       <tbody>
-   
+
            @foreach($list as $item)
-        <tr id="row_{{$item->id}}" data-address="{{$item->address}}" data-phone="{{$item->phone}}">
+        <tr id="row_{{$item->id}}" data-id-tieuchuan="{{$item->id_tieu_chuan}}">
           <td>{{$item['id']}}</td>
           <td>{{$item->ten_tieu_chi}}</td>
-          <td>{{$item->loai_tieu_chi}}</td>
           <td data-tieuchuan="{{$item->id_tieu_chuan}}">{{$item->tieuchuan->ten_tieu_chuan}}</td>
           <td>{{$item->noi_dung}}</td>
           <td class="text-center">
@@ -84,14 +82,6 @@
             <label>Tên tiêu chí</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="">
             <small id="error_name" class="form-text text-danger"></small>
-          </div>
-
-          <div class="form-group">
-            <label>Loại tiêu chí</label>
-            <select name="type" id="type" class="form-control">
-              <option value="CTDT">Chương trình đào tạo</option>
-              <option value="CSGD">Cơ sở giáo dục</option>
-            </select>
           </div>
 
           <div class="form-group">
@@ -188,7 +178,7 @@
       data.id = $("#id-detail").val();
     }
     console.log("url " + url);
-    
+
     $.ajax({
       url: url,
       type: "post",
@@ -198,38 +188,37 @@
         $("#modal_detail").modal("hide");
         var table = $('.yajra-datatable').DataTable();
         let newRow;
+        console.log(data.tieuchi);
 
         if (type == "add") {
           newRow = table.row.add([
             `${data.tieuchi.id}`,
             `${data.tieuchi.ten_tieu_chi}`,
-            `${data.tieuchi.loai_tieu_chi}`,
             `${data.ten_tieu_chuan}`,
             `${data.tieuchi.noi_dung}`,
             '<div class="text-center"><button class="btn btn-primary mx-1" onclick="editFunc(' +
             data.tieuchi.id + ')"><i class="bi bi-pencil-square"></i></button>' +
             '<button class="btn btn-danger mx-1" onclick="deleteFunc(' +
             data.tieuchi.id + ')"><i class="bi bi-trash3"></i></button></div>'
-          ]).draw(false).node().id = 'row_' + data.tieuchi.id;
+          ]).draw(false).node();
         } else {
           let row = table.row('#row_' + data.id);
           newRow = row.data([
             `${data.tieuchi.id}`,
             `${data.tieuchi.ten_tieu_chi}`,
-            `${data.tieuchi.loai_tieu_chi}`,
             `${data.ten_tieu_chuan}`,
             `${data.tieuchi.noi_dung}`,
             '<button class="btn btn-primary mx-1" onclick="editFunc(' +
             data.tieuchi.id + ')"><i class="bi bi-pencil-square"></i></button>' +
             '<button class="btn btn-danger mx-1" onclick="deleteFunc(' +
             data.tieuchi.id + ')"><i class="bi bi-trash3"></i></button>'
-          ]).draw(false).node().id = 'row_' + data.tieuchi.id;
+          ]).draw(false).node();
         }
         // $(newRow).draw(false).node().id = '-+row_' + data.tieuchi.id;
         $(newRow).find('td').eq(3).attr('data-tieuchuan', data.tieuchi.id_tieu_chuan);
         $(newRow).find('td').eq(5).addClass('text-center');
         $(newRow).trigger("change");
-       
+
         $("form").trigger("reset");
       },
       error: function(data) {
@@ -251,13 +240,11 @@
     $("#modalLabelDetail").text("Cập nhật Tiêu chí");
 
     let name = $("#row_" + id).find("td").eq(1).text();
-    let typeTieuChi = $("#row_" + id).find("td").eq(2).text();
     let tieuchuanId = $("#row_" + id).find("td").eq(3).attr('data-tieuchuan')
     let tieuchuanText = $("#row_" + id).find("td").eq(3).text();
     let content = $("#row_" + id).find("td").eq(4).text();
 
     $("#name").val(name);
-    $("#type").val(typeTieuChi);
     $("#content").val(content);
     $("#tieuchuan").val(tieuchuanId);
     $("#id-detail").val(id);
