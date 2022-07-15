@@ -25,8 +25,8 @@
       </thead>
       <tbody>
 
-           @foreach($list as $item)
-        <tr id="row_{{$item->id}}" data-id-tieuchuan="{{$item->id_tieu_chuan}}">
+        @foreach($list as $item)
+        <tr id="row_{{$item->id}}">
           <td>{{$item['id']}}</td>
           <td>{{$item->ten_tieu_chi}}</td>
           <td data-tieuchuan="{{$item->id_tieu_chuan}}">{{$item->tieuchuan->ten_tieu_chuan}}</td>
@@ -88,7 +88,7 @@
             <label>Tiêu chuẩn</label>
             <select name="tieuchuan" id="tieuchuan" class="form-control">
               @foreach($listTieuChuan as $itemTieuChuan)
-                <option value="{{$itemTieuChuan->id}}">{{$itemTieuChuan->ten_tieu_chuan}}</option>
+              <option value="{{$itemTieuChuan->id}}">{{$itemTieuChuan->ten_tieu_chuan}}</option>
               @endforeach
             </select>
           </div>
@@ -188,9 +188,10 @@
         $("#modal_detail").modal("hide");
         var table = $('.yajra-datatable').DataTable();
         let newRow;
-        console.log(data.tieuchi);
+
 
         if (type == "add") {
+          // .id = 'row_' + data.tieuchi.id
           newRow = table.row.add([
             `${data.tieuchi.id}`,
             `${data.tieuchi.ten_tieu_chi}`,
@@ -201,8 +202,9 @@
             '<button class="btn btn-danger mx-1" onclick="deleteFunc(' +
             data.tieuchi.id + ')"><i class="bi bi-trash3"></i></button></div>'
           ]).draw(false).node();
+          newRow.id = 'row_' + data.tieuchi.id;
         } else {
-          let row = table.row('#row_' + data.id);
+          let row = table.row('#row_' + data.tieuchi.id);
           newRow = row.data([
             `${data.tieuchi.id}`,
             `${data.tieuchi.ten_tieu_chi}`,
@@ -214,9 +216,9 @@
             data.tieuchi.id + ')"><i class="bi bi-trash3"></i></button>'
           ]).draw(false).node();
         }
-        // $(newRow).draw(false).node().id = '-+row_' + data.tieuchi.id;
-        $(newRow).find('td').eq(3).attr('data-tieuchuan', data.tieuchi.id_tieu_chuan);
-        $(newRow).find('td').eq(5).addClass('text-center');
+
+        $(newRow).find('td').eq(2).attr('data-tieuchuan', data.tieuchi.id_tieu_chuan);
+        $(newRow).find('td').eq(4).addClass('text-center');
         $(newRow).trigger("change");
 
         $("form").trigger("reset");
@@ -240,16 +242,15 @@
     $("#modalLabelDetail").text("Cập nhật Tiêu chí");
 
     let name = $("#row_" + id).find("td").eq(1).text();
-    let tieuchuanId = $("#row_" + id).find("td").eq(3).attr('data-tieuchuan')
-    let tieuchuanText = $("#row_" + id).find("td").eq(3).text();
-    let content = $("#row_" + id).find("td").eq(4).text();
+    let tieuchuanId = $("#row_" + id).find("td").eq(2).attr('data-tieuchuan')
+    let tieuchuanText = $("#row_" + id).find("td").eq(2).text();
+    let content = $("#row_" + id).find("td").eq(3).text();
 
     $("#name").val(name);
     $("#content").val(content);
     $("#tieuchuan").val(tieuchuanId);
     $("#id-detail").val(id);
     $("#btn-submit-detail").data('type', 'edit');
-
   }
 
 
