@@ -78,43 +78,10 @@
             <li><a href="{{url('/timminhchung')}}"><i class="fa fa-circle-o"></i> Tìm Kiếm Minh Chứng</a></li>
           </ul>
         </li> -->
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="{{route('minhchung.show-tieu-chuan')}}">
             <i class="fa fa-share"></i> <span>Minh Chứng</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li class="treeview active">
-              <a href="#"><i class="fa fa-circle-o"></i> Minh Chứng - CSGD
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{url('/minhchungcsgd')}}"><i class="fa fa-circle-o"></i> Danh Sách Minh Chứng </a></li>
-                <li>
-                  <a href="{{url('/themminhchungcsgd')}}"><i class="fa fa-circle-o"></i> Thêm Minh Chứng </a>
-                </li>
-                <li><a href="{{url('/timminhchungcsgd')}}"><i class="fa fa-circle-o"></i> Tìm Kiếm Minh Chứng</a></li>
-              </ul>
-            </li>
-            <li class="treeview active">
-              <a href="#"><i class="fa fa-circle-o"></i> Minh Chứng - CTDT
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{url('/minhchungctdt')}}"><i class="fa fa-circle-o"></i> Danh Sách Minh Chứng </a></li>
-                <li>
-                  <a href="{{url('/themminhchungctdt')}}"><i class="fa fa-circle-o"></i> Thêm Minh Chứng </a>
-                </li>
-                <li><a href="{{url('/timminhchungctdt')}}"><i class="fa fa-circle-o"></i> Tìm Kiếm Minh Chứng</a></li>
-              </ul>
-            </li>
-          </ul>
         </li>
         <!-- /.quản lý minh chứng -->
         <!-- quản lý tiêu chuẩn -->
