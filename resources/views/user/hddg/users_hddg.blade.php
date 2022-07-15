@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header d-flex justify-content-between px-5">
         <h1>
-            Danh Sách Tài Khoản CSGD
+            Danh Sách Tài Khoản Hội Đồng Đánh Giá
         </h1>
         <a href="#" class="btn btn-primary" style="margin-right: 15px;" id="add_user"> <i
                 class="bi bi-person-plus-fill"></i></a>
@@ -28,6 +28,8 @@
             <tbody>
                 @foreach($list as $item)
                 <tr id="row_{{$item->id}}" data-address="{{$item->address}}" data-phone="{{$item->phone}}">
+    
+                <!-- <tr id="row_{{$item->id}}"> -->
                     <td>{{$item->id}}</td>
                     <td>{{$item->name}}</td>
                     <td>{{$item->username}}</td>
@@ -237,9 +239,10 @@ $("#btn-submit-detail").on("click", function() {
                     `${data.permission}`,
                     '<button class="btn btn-primary mx-1" onclick="editFunc(' +
                     data.id + ')"><i class="bi bi-pencil-square"></i></button>' +
-                    '<button class="btn btn-danger mx-1" onclick="deleteFunc(' +
+                    '<button class="btn btn-danger mx-1" onclick="deleteFun(' +
                     data.id + ')"><i class="bi bi-trash3"></i></button>'
-                ]).draw(false).node().id = 'row_' + data.id;
+                ]).draw(false).node();
+                newRow.id = 'row_' + data.id;
 
             } else {
                 let row = table.row('#row_' + data.id);
@@ -251,7 +254,7 @@ $("#btn-submit-detail").on("click", function() {
                     `${data.permission}`,
                     '<button class="btn btn-primary mx-1" onclick="editFunc(' +
                     data.id + ')"><i class="bi bi-pencil-square"></i></button>' +
-                    '<button class="btn btn-danger mx-1" onclick="deleteFunc(' +
+                    '<button class="btn btn-danger mx-1" onclick="deleteFun(' +
                     data.id + ')"><i class="bi bi-trash3"></i></button>'
                 ]).draw(false).node();
             }

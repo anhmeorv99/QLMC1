@@ -30,7 +30,7 @@ class UserController extends Controller
         $data = [];
         $list = UserHDDG::where("permission", "!=", "admin")->orderby("id", "asc")->get();
         $data['list']= $list;
-        return view('user.hddg.users', $data);
+        return view('user.hddg.users_hddg', $data);
     }
 
     public function list_hddg(Request $request)
@@ -154,65 +154,87 @@ class UserController extends Controller
         $userDelete = UserHDDG::find($request->id);
         $userDelete->delete();
 
-        // return redirect('/users-hddg');
-        // alert('Đã xóa thành công minh chứng');
-        return new JsonResponse(['status' => 'success', 'message' => 'Đã xóa thành công minh chứng'], 200);
+        return new JsonResponse(['status' => 'success', 'message' => 'Đã xóa thành công tài khoản hội đồng đánh giá'], 200);
     }
 
 
     public function index_dvbc()
     {
-        $query = DB::table("userdvbc");
-        $query = $query->select("*")->orderby("id");
-
-        $data = $query->paginate(20); 
-        return view('user.dvbc.users',$data);
+        $list = UserDVBC::orderby("id", "asc")->get();
+        $listDVBC = DVBC::orderby("id", "asc")->get();
+        return view('user.dvbc.users_dvbc', compact(['list', 'listDVBC']));
     }
-
 
     public function create_dvbc(Request $request)
     {   
-        if($request->isMethod('post')){
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required',
-                'password' => 'required',
-            ]);
-
-
-                $user = UserDVBC::where('username', '=', strtolower($request->input('username')))->first();
-                if ($user === null) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            "username" => "required|string|max:255|unique:userdvbc,username",
+            'email' => 'required|string|email|max:255|unique:userdvbc,email',
+            'password' => 'required|string|min:6|confirmed',
+            'id_dvbc' => 'required|integer',
+        ]);
+        $dvbcRecord = DVBC::where('id', $request['id_dvbc'])->get();
+        if ($validator->fails()) {
+            return new JsonResponse(['errors'=>$validator->getMessageBag()->toArray()], 406);
+        }else{
                     $user = UserDVBC::create([
                         'name' => trim($request->input('name')),
                         'username' => strtolower($request->input('username')),
                         'email' => strtolower($request->input('email')),
                         'password' => bcrypt($request->input('password')),
-                        'phone' => trim($request->input('phone')),
                         'address' => trim($request->input('address')),
-                        'id_dvbc' => (int)trim($request->id_dvbc),
+                        'phone' => trim($request->input('phone')),
+                        'id_dvbc' => trim($request->input('id_dvbc')),
                     ]);
-                    session()->flash('success', 'Your account is created');
-                    return Redirect::to("/users-dvbc");
-
-                }
-                return redirect()->back()->with('error', 'username already exists');   
-                
-    
+                    return new JsonResponse(['user' => $user, 'ten_dvbc'=>$dvbcRecord[0]['ten_dvbc']], 200);  
         }
-        else{
-            $dvbc = DVBC::all();
-            return view('user.dvbc.register', compact('dvbc'));
-        }
-       
     }
 
-    public function delete_dvbc($id)
+    // id, name, username, password, email, phone, address, id_dvcbc, create_at, update_at
+    public function update_dvbc(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            "username" => "required|string|max:255",
+            'email' => 'required|string|email|max:255',
+            'id_dvbc' => 'required|integer',
+            'id' => 'required|integer',
+        ]);
+        $dvbcRecord = DVBC::where('id', $request['id_dvbc'])->get();
+        if ($validator->fails()) {
+            return new JsonResponse(['errors'=>$validator->getMessageBag()->toArray()], 406);
+        }else{
+            $user = UserDVBC::find($request->input('id'));
+            if($user->username != $request->input('username')){
+                $checkUserName = UserDVBC::where('username', '=', strtolower($request->input('username')))->count();
+                if($checkUserName >0){
+                    return new JsonResponse(['errors'=>['username'=>'username exists']], 406);
+                }
+            }
+            if($user->email != $request->input('email')){
+                $checkEmail = UserDVBC::where('email', '=', strtolower($request->input('email')))->count();
+                if($checkEmail > 0){
+                    return new JsonResponse(['errors'=>['email'=>'email exists']], 406);
+                }
+            }
+
+            $user->name = trim($request->input('name'));
+            $user->username = strtolower($request->input('username'));
+            $user->email = strtolower($request->input('email'));
+            $user->address = trim($request->input('address'));
+            $user->phone = trim($request->input('phone'));
+            $user->id_dvbc = trim($request->input('id_dvbc'));
+            $user->save();
+            return new JsonResponse(['user' => $user, 'ten_dvbc'=>$dvbcRecord[0]['ten_dvbc']], 200); 
+        }
+    }
+
+    public function delete_dvbc(Request $request)
     {
-        $userDelete = UserDVBC::find($id);
+        $userDelete = UserDVBC::find($request->id);
         $userDelete->delete();
 
-        return redirect('/users-dvbc');
-        alert('Đã xóa thành công minh chứng');
+        return new JsonResponse(['status' => 'success', 'message' => 'Đã xóa thành công tài khoản đơn vị báo cáo'], 200);
     }
 
 }

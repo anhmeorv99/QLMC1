@@ -135,8 +135,9 @@ Route::post('/tieuchi/update', [TieuchiController::class, 'update'])->name('upda
 
 
 	Route::get('/users-dvbc', [UserController::class, 'index_dvbc'])->name('users-dvbc')->middleware('can:admin');
-	Route::match(['get', 'post'],'/create-dvbc', [UserController::class, 'create_dvbc'])->name('create-dvbc')->middleware('can:admin');
-	Route::get('/delete-dvbc/{id}', [UserController::class, 'delete_dvbc'])->middleware('can:admin');
+	Route::match(['get', 'post'],'/create-dvbc', [UserController::class, 'create_dvbc'])->name('add-user-dvbc')->middleware('can:admin');
+	Route::post('edit-dvbc', [UserController::class, 'update_dvbc'])->name('edit-user-dvbc')->middleware('can:admin');
+	Route::delete('/delete-dvbc', [UserController::class, 'delete_dvbc'])->name('delete-user-dvbc')->middleware('can:admin');
 
 // 	Route::match(['get', 'post'],'/suauser/{id}', 'UserController@edit')->name('suauser');
 // 	Route::match(['get', 'post'],'/timuser', 'UserController@search')->name('timuser');
