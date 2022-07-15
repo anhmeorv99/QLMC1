@@ -14,4 +14,8 @@ class TieuChi extends Model
         'id_tieu_chuan',
     ];
 
+    public function tieuchuan()
+    {
+        return $this->belongsTo('App\Models\TieuChuan', 'id_tieu_chuan');
+    }
 }

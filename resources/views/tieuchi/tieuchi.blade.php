@@ -6,7 +6,7 @@
     <h1>
       Danh Sách Tiêu Chí
     </h1>
-    <a href="#" class="btn btn-primary" style="margin-right: 15px;" id="add_user"> <i class="bi bi-person-plus-fill"></i></a>
+    <a href="#" class="btn btn-primary" style="margin-right: 15px;" id="add_tieuchi"> <i class="bi bi-person-plus-fill"></i></a>
   </section>
 
   <!-- Main content -->
@@ -17,18 +17,21 @@
       <thead>
         <tr>
           <th style="width:5%;">ID</th>
-          <th style="width:25%;">Tên Tiêu Chuẩn</th>
-          <th style="width:25%;">Loại tiêu chuẩn</th>
-          <th style="width:20%;">Nội dung</th>
+          <th style="width:20%;">Tên Tiêu Chí</th>
+          <th style="width:10%;">Loại tiêu chí</th>
+          <th style="width:20%;">Tên tiêu chuẩn</th>
+          <th style="width:30%;">Nội dung</th>
           <th style="width:10%;">Action</th>
         </tr>
       </thead>
       <tbody>
-        @foreach($list as $item)
+   
+           @foreach($list as $item)
         <tr id="row_{{$item->id}}" data-address="{{$item->address}}" data-phone="{{$item->phone}}">
-          <td>{{$item->id}}</td>
-          <td>{{$item->ten_tieu_chuan}}</td>
-          <td>{{$item->loai_tieu_chuan}}</td>
+          <td>{{$item['id']}}</td>
+          <td>{{$item->ten_tieu_chi}}</td>
+          <td>{{$item->loai_tieu_chi}}</td>
+          <td data-tieuchuan="{{$item->id_tieu_chuan}}">{{$item->tieuchuan->ten_tieu_chuan}}</td>
           <td>{{$item->noi_dung}}</td>
           <td class="text-center">
             <button class="btn btn-primary" onclick="editFunc({{$item->id}})">
@@ -49,13 +52,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Xóa tiêu chuẩn</h3>
+        <h3 class="modal-title" id="exampleModalLabel">Xóa tiêu chí</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Xác nhận xóa tiêu chuẩn này?
+        Xác nhận xóa tiêu chí này?
       </div>
       <div class="modal-footer">
         <input type="hidden" id="id-del">
@@ -66,7 +69,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="modal_detail" tabindex="-1" role="dialog" aria-labelledby="modalLabelDetail" data-route-add="{{ route('create-tieuchuan') }}" data-route-edit="{{ route('update-tieuchuan') }}" aria-hidden="true">
+<div class="modal fade" id="modal_detail" tabindex="-1" role="dialog" aria-labelledby="modalLabelDetail" data-route-add="{{ route('create-tieuchi') }}" data-route-edit="{{ route('update-tieuchi') }}" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -78,16 +81,25 @@
       <form id="form-detail">
         <div class="modal-body">
           <div class="form-group">
-            <label>Tên tiêu chuẩn</label>
+            <label>Tên tiêu chí</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="">
             <small id="error_name" class="form-text text-danger"></small>
           </div>
 
           <div class="form-group">
-            <label>Loại tiêu chuẩn</label>
+            <label>Loại tiêu chí</label>
             <select name="type" id="type" class="form-control">
               <option value="CTDT">Chương trình đào tạo</option>
               <option value="CSGD">Cơ sở giáo dục</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Tiêu chuẩn</label>
+            <select name="tieuchuan" id="tieuchuan" class="form-control">
+              @foreach($listTieuChuan as $itemTieuChuan)
+                <option value="{{$itemTieuChuan->id}}">{{$itemTieuChuan->ten_tieu_chuan}}</option>
+              @endforeach
             </select>
           </div>
 
@@ -118,7 +130,7 @@
     let id = $("#id-del").val();
     console.log(id);
     $.ajax({
-      url: "{{ route('delete-tieuchuan') }}",
+      url: "{{ route('delete-tieuchi') }}",
       type: "delete",
       data: {
         id: id,
@@ -139,29 +151,30 @@
     $("#modal_del").modal("show");
   }
 
-  $("#add_user").on("click", function() {
+  $("#add_tieuchi").on("click", function() {
     $("#modal_detail").modal("show");
     $("#btn-submit-detail").text("Thêm");
-    $("#modalLabelDetail").text("Thêm tiêu chuẩn");
-    $("#password").parent().show();
-    $("#password-confirm").parent().show();
+    $("#modalLabelDetail").text("Thêm tiêu chí");
     $("#btn-submit-detail").data('type', 'add');
   });
 
+  //todo
   $("#btn-submit-detail").on("click", function() {
     let name = $("#name").val();
-    let typeTieuChuan = $("#type").val();
+    let typeTieuChi = $("#type").val();
+    let tieuchuan = $("#tieuchuan").val();
     let content = $("#content").val();
 
     let type = $("#btn-submit-detail").data('type');
     let check = validator(name);
-    // let check=true;
+
     if (!check) {
       return;
     }
     let data = {
       name: name,
-      type: typeTieuChuan,
+      type: typeTieuChi,
+      tieuchuan: tieuchuan,
       content: content,
       _token: "{{ csrf_token() }}"
     };
@@ -175,7 +188,7 @@
       data.id = $("#id-detail").val();
     }
     console.log("url " + url);
-    console.log(data);
+    
     $.ajax({
       url: url,
       type: "post",
@@ -184,38 +197,42 @@
       success: function(data) {
         $("#modal_detail").modal("hide");
         var table = $('.yajra-datatable').DataTable();
-        let newRow
+        let newRow;
+
         if (type == "add") {
           newRow = table.row.add([
-            `${data.id}`,
+            `${data.tieuchi.id}`,
+            `${data.tieuchi.ten_tieu_chi}`,
+            `${data.tieuchi.loai_tieu_chi}`,
             `${data.ten_tieu_chuan}`,
-            `${data.loai_tieu_chuan}`,
-            `${data.noi_dung}`,
+            `${data.tieuchi.noi_dung}`,
             '<div class="text-center"><button class="btn btn-primary mx-1" onclick="editFunc(' +
-            data.id + ')"><i class="bi bi-pencil-square"></i></button>' +
+            data.tieuchi.id + ')"><i class="bi bi-pencil-square"></i></button>' +
             '<button class="btn btn-danger mx-1" onclick="deleteFunc(' +
-            data.id + ')"><i class="bi bi-trash3"></i></button></div>'
-          ]).draw(false).node().id = 'row_' + data.id;
-
+            data.tieuchi.id + ')"><i class="bi bi-trash3"></i></button></div>'
+          ]).draw(false).node().id = 'row_' + data.tieuchi.id;
         } else {
           let row = table.row('#row_' + data.id);
           newRow = row.data([
-            `${data.id}`,
+            `${data.tieuchi.id}`,
+            `${data.tieuchi.ten_tieu_chi}`,
+            `${data.tieuchi.loai_tieu_chi}`,
             `${data.ten_tieu_chuan}`,
-            `${data.loai_tieu_chuan}`,
-            `${data.noi_dung}`,
+            `${data.tieuchi.noi_dung}`,
             '<button class="btn btn-primary mx-1" onclick="editFunc(' +
-            data.id + ')"><i class="bi bi-pencil-square"></i></button>' +
+            data.tieuchi.id + ')"><i class="bi bi-pencil-square"></i></button>' +
             '<button class="btn btn-danger mx-1" onclick="deleteFunc(' +
-            data.id + ')"><i class="bi bi-trash3"></i></button>'
-          ]).draw(false).node();
+            data.tieuchi.id + ')"><i class="bi bi-trash3"></i></button>'
+          ]).draw(false).node().id = 'row_' + data.tieuchi.id;
         }
-        $(newRow).find('td').eq(4).addClass('text-center');
+        // $(newRow).draw(false).node().id = '-+row_' + data.tieuchi.id;
+        $(newRow).find('td').eq(3).attr('data-tieuchuan', data.tieuchi.id_tieu_chuan);
+        $(newRow).find('td').eq(5).addClass('text-center');
         $(newRow).trigger("change");
+       
         $("form").trigger("reset");
       },
       error: function(data) {
-        console.log(data);
         // if (data.status == 422) {
         let errors = JSON.parse(data.responseText);
         errors = errors.errors;
@@ -231,15 +248,18 @@
   function editFunc(id) {
     $("#modal_detail").modal("show");
     $("#btn-submit-detail").text("Cập nhật");
-    $("#modalLabelDetail").text("Cập nhật Tiêu chuẩn");
+    $("#modalLabelDetail").text("Cập nhật Tiêu chí");
 
     let name = $("#row_" + id).find("td").eq(1).text();
-    let typeTieuChuan = $("#row_" + id).find("td").eq(2).text();
-    let content = $("#row_" + id).find("td").eq(3).text();
+    let typeTieuChi = $("#row_" + id).find("td").eq(2).text();
+    let tieuchuanId = $("#row_" + id).find("td").eq(3).attr('data-tieuchuan')
+    let tieuchuanText = $("#row_" + id).find("td").eq(3).text();
+    let content = $("#row_" + id).find("td").eq(4).text();
 
     $("#name").val(name);
-    $("#type").val(typeTieuChuan);
+    $("#type").val(typeTieuChi);
     $("#content").val(content);
+    $("#tieuchuan").val(tieuchuanId);
     $("#id-detail").val(id);
     $("#btn-submit-detail").data('type', 'edit');
 
@@ -248,9 +268,8 @@
 
   function validator(name) {
     let check = true;
-    console.log(name);
     if (!name.trim()) {
-      $("#error_name").text("Vui lòng nhập tên tiêu chuẩn");
+      $("#error_name").text("Vui lòng nhập tên tiêu chí");
       check = false;
     } else {
       $("#error_name").text("");

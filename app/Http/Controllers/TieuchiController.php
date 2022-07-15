@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TieuChi as ModelsTieuChi;
+use App\Models\TieuChuan as ModelsTieuChuan;
 use App\Tieuchi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -25,24 +26,11 @@ class TieuchiController extends Controller
      */
     public function index()
     {
-        $data = [];
-        $list = ModelsTieuChi::orderby("id", "asc")->get();
-        $data['list'] = $list;
-        return view('tieuchi.tieuchi', $data);
-    }
+        $list = ModelsTieuChi::with('tieuchuan')->orderby("id", "asc")->get();
+        $listTieuChuan = ModelsTieuChuan::orderby("id", "asc")->get();
 
-    public function add(Request $request)
-    {
-        if ($request->isMethod('post')) {
-            $tentieuchi = $request->input("tentieuchi");
-            $cap_id = $request->input("cap_id");
-            $tieuchi = new Tieuchi();
-            $tieuchi->cap_id = $cap_id;
-            $tieuchi->tentieuchi = $tentieuchi;
-            $tieuchi->save();
-            return Redirect::to("/tieuchi");
-        }
-        return view('/tieuchi/themtieuchi');
+
+        return view('tieuchi.tieuchi', compact(['list', 'listTieuChuan']));
     }
 
     public function delete(Request $request)
@@ -50,9 +38,7 @@ class TieuchiController extends Controller
         $tieuChiDelete = ModelsTieuChi::find($request->id);
         $tieuChiDelete->delete();
 
-        // return redirect('/users-hddg');
-        // alert('Đã xóa thành công minh chứng');
-        return new JsonResponse(['status' => 'success', 'message' => 'Đã xóa thành công tiêu chuẩn'], 200);
+        return new JsonResponse(['status' => 'success', 'message' => 'Đã xóa thành công tiêu chí'], 200);
     }
 
     public function create(Request $request)
@@ -61,16 +47,20 @@ class TieuchiController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255|in:CSGD,CTDT',
+            'tieuchuan' => 'required|integer',
         ]);
+        $tieuchuanRecord = ModelsTieuChuan::where('id', $request['tieuchuan'])->get();
         if ($validator->fails()) {
             return new JsonResponse(['errors' => $validator->getMessageBag()->toArray()], 406);
         } else {
             $tieuchi = ModelsTieuChi::create([
-                'ten_tieu_chuan' => trim($request->input('name')),
-                'loai_tieu_chuan' => trim($request['type']),
+                'ten_tieu_chi' => trim($request->input('name')),
+                'loai_tieu_chi' => trim($request['type']),
+                'id_tieu_chuan' => trim($request['tieuchuan']),
                 'noi_dung' => trim($request->input('content')),
             ]);
-            return new JsonResponse($tieuchi, 200);
+            
+            return response()->json(['tieuchi'=>$tieuchi,'ten_tieu_chuan'=>$tieuchuanRecord[0]['ten_tieu_chuan']]);
         }
     }
 
@@ -79,18 +69,23 @@ class TieuchiController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255|in:CSGD,CTDT',
+            'tieuchuan' => 'required|integer',
             'id' => 'required|integer',
         ]);
+        $tieuchuanRecord = ModelsTieuChuan::where('id', $request['tieuchuan'])->get();
         if ($validator->fails()) {
             return new JsonResponse(['errors' => $validator->getMessageBag()->toArray()], 406);
         } else {
             $tieuchi = ModelsTieuChi::find($request->input('id'));
 
-            $tieuchi->ten_tieu_chuan = trim($request->input('name'));
-            $tieuchi->loai_tieu_chuan = trim($request->input('type'));
+            $tieuchi->ten_tieu_chi = trim($request->input('name'));
+            $tieuchi->loai_tieu_chi = trim($request->input('type'));
             $tieuchi->noi_dung = trim($request->input('content'));
+            // $tieuchi->ten_tieu_chuan = $tieuchuanRecord[0]["ten_tieu_chuan"];
+            $tieuchi->id_tieu_chuan = trim($request['tieuchuan']);
+            
             $tieuchi->save();
-            return new JsonResponse($tieuchi, 200);
+            return response()->json(['tieuchi'=>$tieuchi,'ten_tieu_chuan'=>$tieuchuanRecord[0]['ten_tieu_chuan']]);
         }
     }
 }

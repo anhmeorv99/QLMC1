@@ -424,3 +424,22 @@ UPDATE `quanlyminhchung`.`tieuchi` SET `loai_tieu_chi` = 'CSGD' WHERE (`id` = '8
 
 ALTER TABLE `quanlyminhchung`.`tieuchuan` 
 ADD COLUMN `deleted_at` VARCHAR(45) NULL AFTER `updated_at`;
+
+ALTER TABLE `quanlyminhchung`.`tieuchi` 
+DROP FOREIGN KEY `fk_standard_criteria`;
+ALTER TABLE `quanlyminhchung`.`tieuchi` 
+ADD CONSTRAINT `fk_standard_criteria`
+  FOREIGN KEY (`id_tieu_chuan`)
+  REFERENCES `quanlyminhchung`.`tieuchuan` (`id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+
+ALTER TABLE `quanlyminhchung`.`minhchung` 
+DROP FOREIGN KEY `fk_tieu_chi_1`;
+ALTER TABLE `quanlyminhchung`.`minhchung` 
+ADD CONSTRAINT `fk_tieu_chi_1`
+  FOREIGN KEY (`id_tieu_chi`)
+  REFERENCES `quanlyminhchung`.`tieuchi` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
