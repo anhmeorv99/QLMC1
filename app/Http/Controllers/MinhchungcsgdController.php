@@ -74,7 +74,6 @@ class MinhchungcsgdController extends Controller
             return Redirect::to("/minhchungcsgd");
         }
 
-        $dvbc = \Auth::user()->id_dvbc;
         return view('/minhchungcsgd/themminhchungcsgd');
     }
 

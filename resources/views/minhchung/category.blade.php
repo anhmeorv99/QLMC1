@@ -84,7 +84,7 @@
                 element +=
                     `<tr>
                         <td>${step}</td>
-                        <td><a href="{{ url('/') }}/minh-chung/tieu-chi-${id}">${item.ten_tieu_chi}<i class="bi bi-arrow-up-right-square px-2 text-primary"></i></a></td>
+                        <td><a href="{{ url('/') }}/minh-chung/tieu-chi-${item.id}">${item.ten_tieu_chi}<i class="bi bi-arrow-up-right-square px-2 text-primary"></i></a></td>
                         <td class="string-1">${item.noi_dung}</td>
                     </tr>`;
             });

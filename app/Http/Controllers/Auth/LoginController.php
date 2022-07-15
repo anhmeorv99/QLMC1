@@ -6,36 +6,67 @@ use App\Http\Controllers\Controller;
 use App\Models\UserHDDG;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
     public function __construct()
     {
+        if(\Auth::guard('user')->check() || \Auth::guard('admin')->check()){
+            return redirect()->route('home');
+        }
         $this->middleware('guest')->except('logout');
     }
-    
+
+    use AuthenticatesUsers;
+
     public function show_login_form()
     {
         return view('auth.login');
     }
+
+    public function show_login_form_admin()
+    {
+        return view('auth.login-admin');
+    }
+
     public function process_login(Request $request)
     {
         $request->validate([
             'username' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            "type_user"=>"required",
         ]);
 
-        $credentials = $request->except(['_token']);
+        // $credentials = $request->except(['_token']);
 
-        $user = UserHDDG::where('username',$request->username)->first();
-        if (auth()->attempt($credentials)) {
+        // $user = UserHDDG::where('username',$request->username)->first();
+        // if (auth()->attempt($credentials)) {
+        if($request->type_user == "admin"){
 
-           return redirect()->route('home');
+            if(\Auth::guard('admin')->attempt(['username'=>$request->username, 'password'=>$request->password])){
+                $request->session()->regenerate();
+                $this->clearLoginAttempts($request);
 
-        }else{
+                return redirect()->route('home');
+            }else{
+            // dd("error");
             session()->flash('message', 'Invalid credentials');
-            return redirect()->back();
+            return redirect()->route('login-admin');
+        }
+        }
+
+        if($request->type_user == "user"){
+            if(\Auth::guard('user')->attempt(['username'=>$request->username, 'password'=>$request->password])){
+                // dd(\Auth::guard('user')->user());
+                return redirect()->route('home');
+            }else{
+            // dd("error");
+            // session()->flash('message', 'Invalid credentials');
+            return back()->with('message', 'Invalid credentials');
+        }
+
         }
     }
     public function show_signup_form()
@@ -43,13 +74,13 @@ class LoginController extends Controller
         return view('auth.register');
     }
     public function process_signup(Request $request)
-    {   
+    {
         $request->validate([
             'name' => 'required',
             'email' => 'required',
             'password' => 'required'
         ]);
- 
+
         $user = UserHDDG::create([
             'name' => trim($request->input('name')),
             'username' => strtolower($request->input('username')),
@@ -58,12 +89,22 @@ class LoginController extends Controller
         ]);
 
         session()->flash('message', 'Your account is created');
-       
+
         // return redirect()->route('login');
     }
-    public function logout()
+    public function logout(Request $request)
     {
-        \Auth::logout();
+        
+        $this->guard('admin')->logout();
+        $this->guard('user')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
 
         return redirect()->route('login');
     }

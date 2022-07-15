@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
     ],
 
     /*
@@ -62,9 +70,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
+            'model' => App\Models\UserDVBC::class,
+        ],
+        'admin' => [
+            'driver' => 'eloquent',
             'model' => App\Models\UserHDDG::class,
         ],
-
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

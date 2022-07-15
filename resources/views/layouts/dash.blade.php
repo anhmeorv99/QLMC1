@@ -25,7 +25,10 @@
             <ul class="dropdown-menu" style="background-color: #F1F1F1; width:50%;">
               <li class="user-footer" style="background-color: #F1F1F1; width: 60%;margin-left: 50px;">
                 <div class="pull-right">
-                  <a href="{{ route('logout') }}" class="btn btn-default btn-flat">Đăng Xuất</a>
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-default btn-flat">Đăng Xuất</button>
+                    </form>
                 </div>
               </li>
             </ul>
@@ -44,7 +47,12 @@
           <img src="image/avatar.png" class="img-circle" alt="User">
         </div>
         <div class="pull-left info">
-          {{-- <p>{{ Auth::user()->name }}</p> --}}
+            @if (\Auth::guard('user')->check())
+
+                <p>{{ \Auth::guard('user')->user()->name }}</p>
+            @else
+                <p>{{ \Auth::guard('admin')->user()->name }}</p>
+            @endif
           <!-- comment hear -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -94,6 +102,7 @@
             <li><a href="{{url('/themtieuchuan')}}"><i class="fa fa-circle-o"></i> Thêm Tiêu Chuẩn</a></li>
           </ul>
         </li> -->
+        @if(\Auth::guard('admin')->check() && Auth::user()->permission == 'admin')
         <li>
           <a href="{{ url('/tieuchuan')}}">
             <i class="fa fa-share"></i> <span>Tiêu Chuẩn</span>
@@ -116,11 +125,13 @@
             <i class="fa fa-share"></i> <span>Tiêu Chí</span>
           </a>
         </li>
+        @endif
+
         <!-- /.quản lý tiêu chí -->
         <!-- quản lý báo cáo -->
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-edit"></i> <span>Báo Cáo</span>
+            <i class="fa fa-edit"></i> <span>Tự đánh giá</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -143,19 +154,21 @@
         </li>
         <!-- /.quản lý báo cáo -->
         <!-- Quản lý user -->
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Người dùng</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ url('/users-hddg')}}"><i class="fa fa-circle-o"></i> Tài khoản HĐĐG</a></li>
-            <li><a href="{{ url('/users-dvbc')}}"><i class="fa fa-circle-o"></i> Tài khoản DVBC</a></li>
-            <!-- <li><a href="{{ url('/timuser')}}"><i class="fa fa-circle-o"></i> Tìm kiếm người dùng</a></li> -->
-          </ul>
-        </li>
+        @if(\Auth::guard('admin')->check() && Auth::user()->permission == 'admin')
+            <li class="treeview">
+            <a href="#">
+                <i class="fa fa-edit"></i> <span>Người dùng</span>
+                <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="{{ url('/users-hddg')}}"><i class="fa fa-circle-o"></i> Tài khoản HĐĐG</a></li>
+                <li><a href="{{ url('/users-dvbc')}}"><i class="fa fa-circle-o"></i> Tài khoản DVBC</a></li>
+                <!-- <li><a href="{{ url('/timuser')}}"><i class="fa fa-circle-o"></i> Tìm kiếm người dùng</a></li> -->
+            </ul>
+            </li>
+        @endif
         <!-- /.quản lý user -->
 
         <!-- thông tin nhóm và công việc -->

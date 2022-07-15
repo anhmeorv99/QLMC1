@@ -29,16 +29,17 @@ Route::get('/', function () {
 
 Route::namespace('App\Http\Controllers\Auth')->group(function () {
 	Route::get('/login', 'LoginController@show_login_form')->name('login');
+	Route::get('/admin/login', 'LoginController@show_login_form_admin')->name('login-admin');
 	Route::post('/login', 'LoginController@process_login')->name('post-login');
 	Route::get('/register', 'LoginController@show_signup_form')->name('register')->middleware('can:admin');
 	Route::post('/register', 'LoginController@process_signup')->middleware('can:admin');
-	Route::get('/logout', 'LoginController@logout')->name('logout');
+	Route::post('/logout', 'LoginController@logout')->name('logout');
 
 });
 
 // Auth::routes();
 // Route::group(['middleware' => 'auth'], function(){
-Route::group([] ,function(){
+Route::group(['middleware' => 'auth:user,admin'] ,function(){
 	Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 	Route::get('employee', [EmpController::class, 'index']);
@@ -67,8 +68,9 @@ Route::group([] ,function(){
 // 	Route::match(['get', 'post'],'/timtieuchuanctdt', 'TieuchuanctdtController@search')->name('timtieuchuanctdt');
 // /*	Route::match(['get', 'post'],'/themtieuchuanctdt', 'TieuchuanctdtController@add')->name('themtieuchuanctdt');
 // */
+    // Route::match(['get', 'post'],'/themminhchung}', [MinhChungController::class, 'create'])->name('themminhchung');
 
-	Route::get('/minhchungcsgd', [MinhchungcsgdController::class, 'index'])->name('minhchungcsgd')->middleware('can:admin');
+	Route::get('/minhchungcsgd', [MinhchungcsgdController::class, 'index'])->name('minhchungcsgd');
 	Route::match(['get', 'post'],'/themminhchungcsgd', [MinhchungcsgdController::class, 'create'])->name('themminhchungcsgd');
 	Route::match(['get', 'post'],'/suaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'edit'])->name('suaminhchungcsgd');
 	Route::get('/xoaminhchungcsgd/{id}', [MinhchungcsgdController::class, 'delete'])->middleware('can:admin');;
@@ -79,6 +81,11 @@ Route::group([] ,function(){
 		Route::get('/get-tieuchi/{id}', [MinhChungController::class, 'getTieuChi'])->name('get-tieu-chi');
 		Route::get('/tieu-chi-{id}', [MinhChungController::class, 'showListMinhChung'])->name('showListMinhChung');
 		Route::get('/minh-chung-{id}', [MinhChungController::class, 'showMinhChung'])->name('showMinhChung');
+        Route::get("/them-minh-chung", [MinhChungController::class, "showCreateMinhChung"])->name("show-create");
+        Route::post("/them-minh-chung", [MinhChungController::class, "create"])->name("create-minh-chung");
+        Route::get("/sua-minh-chung/{id}", [MinhChungController::class, "showEditMinhChung"])->name("show-edit");
+        Route::post("/sua-minh-chung", [MinhChungController::class, "edit"])->name("edit-minh-chung");
+
 	});
 
 

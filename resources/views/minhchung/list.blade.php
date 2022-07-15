@@ -4,9 +4,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header d-flex justify-content-between px-5">
             <h1>
-                {{ $tieuChi->ten_tieu_chi}}
+                {{ $tieuChi->ten_tieu_chi }}
             </h1>
-            <a href="#" class="btn btn-primary" style="margin-right: 15px;"> <i class="bi bi-person-plus-fill"></i></a>
+            @if (Auth::guard('user')->check())
+                <a href="{{ route('minhchung.show-create') }}" class="btn btn-primary" style="margin-right: 15px;"><i
+                        class="bi bi-bookmark-plus-fill"></i></a>
+            @endif
         </section>
 
         <!-- Main content -->
@@ -26,19 +29,20 @@
                 </thead>
                 <tbody>
                     @foreach ($list as $item)
-                        <tr id="row_{{$item->id}}">
-                            <td class="sorting_1">{{$item->id}}</td>
-                            <td>{{$item->ten_minh_chung}}</td>
-                            <td>{{$item->kieu_minh_chung}}</td>
-                            <td>{{$item->noi_dung}}</td>
-                            <td>{{$item->file}}</td>
+                        <tr id="row_{{ $item->id }}">
+                            <td class="sorting_1">{{ $item->id }}</td>
+                            <td>{{ $item->ten_minh_chung }}</td>
+                            <td>{{ $item->kieu_minh_chung }}</td>
+                            <td>{{ $item->noi_dung }}</td>
+                            <td>{{ $item->file }}</td>
                             <td>
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-link" data-toggle="modal"
+                                    <button type="button" class="btn btn-link btn-preview" data-toggle="modal"
+                                        data-hash="{{ $item->hash_file }}"
                                         data-target="#exampleModalCenter">
                                         <i class="bi bi-eye-fill"></i>
                                     </button>
-                                    <a href="javascript:void(0)" class="edit btn btn-primary btn-sm"><i
+                                    <a href="{{ route('minhchung.show-edit', ['id'=>$item->id]) }}" class="edit btn btn-primary btn-sm"><i
                                             class="bi bi-pencil-square"></i></a>
                                     <a href="javascript:void(0)" class="edit btn btn-danger btn-sm"><i
                                             class="bi bi-trash3"></i></a>
@@ -56,14 +60,12 @@
         <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:80%; width:65%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <h3 class="modal-title" id="exampleModalLongTitle">File minh chứng</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <embed src="https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf" type="application/pdf"
-                        style="height: 700px;width: -webkit-fill-available">
 
                 </div>
 
@@ -74,7 +76,24 @@
     <script type="text/javascript">
         $(function() {
 
-            var table = $('.yajra-datatable').DataTable();
-        });
+                    var table = $('.yajra-datatable').DataTable();
+                    $(".btn-preview").on("click", function() {
+                            let hash = $(this).data('hash');
+                            console.log(hash);
+                            hash = hash.toLowerCase()
+                            let url = "{{ url('/uploads') }}/" + hash;
+                            if (hash.includes(".pdf") || hash.includes(".txt")) {
+                                $('#exampleModalCenter .modal-body').html('<embed src="' + url +
+                                    '" type="application/pdf" style="height: 700px;width: -webkit-fill-available">');
+                            } else if (hash.includes(".doc") || hash.includes(".docx")) {
+                                $('#exampleModalCenter .modal-body').html('<embed src="' + url +
+                                    '" type="application/msword" style="height: 700px;width: -webkit-fill-available">'
+                                    );
+                            } else if (hash.includes('.jpg') || hash.includes('.png')){
+                                $(' .modal-body').html('<img src="' + url +
+                                    '" style="height: 700px;width: -webkit-fill-available">');
+                            }
+                    });
+                });
     </script>
 @stop
