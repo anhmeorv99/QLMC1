@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 15, 2022 lúc 07:12 AM
+-- Thời gian đã tạo: Th7 16, 2022 lúc 10:50 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.29
 
@@ -94,13 +94,22 @@ CREATE TABLE `minhchung` (
   `ten_minh_chung` varchar(255) NOT NULL,
   `noi_dung` text DEFAULT NULL,
   `id_dvbc` int(11) NOT NULL,
-  `id_ctct` int(11) DEFAULT NULL,
+  `id_ctdt` int(11) DEFAULT NULL,
   `id_tieu_chi` int(11) NOT NULL,
   `file` text DEFAULT NULL,
   `hash_file` text DEFAULT NULL,
+  `duyet` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `minhchung`
+--
+
+INSERT INTO `minhchung` (`id`, `ten_minh_chung`, `noi_dung`, `id_dvbc`, `id_ctdt`, `id_tieu_chi`, `file`, `hash_file`, `duyet`, `created_at`, `updated_at`) VALUES
+(25, 'asdasdas', 'asdasdsa', 1, 1, 12, 'keymap.txt', '5298a6ffff4d8789245b6781b7843038.txt', 'ACCEPTED', '2022-07-15 12:47:05', '2022-07-16 01:19:19'),
+(26, 'sdsad2', 'asdasda', 1, 1, 12, 'ĐGTV_ Nguyễn Tuấn Anh.docx', 'ff0229da50ac56a0f1bac414d6621b4f.docx', 'ACCEPTED', '2022-07-15 12:47:35', '2022-07-16 01:21:07');
 
 -- --------------------------------------------------------
 
@@ -146,7 +155,7 @@ CREATE TABLE `tieuchuan` (
 --
 
 INSERT INTO `tieuchuan` (`id`, `ten_tieu_chuan`, `loai_tieu_chuan`, `noi_dung`, `created_at`, `updated_at`) VALUES
-(13, 'Tiêu Chuẩn 1', 'CTDT', 'CSGD2', '2022-07-14 21:40:38', '2022-07-14 21:48:53'),
+(13, 'Tiêu Chuẩn 1', 'CSGD', 'CSGD2', '2022-07-14 21:40:38', '2022-07-16 06:45:07'),
 (14, 'Tiêu Chuẩn 2', 'CTDT', 'OK', '2022-07-14 21:53:37', '2022-07-14 21:53:37');
 
 -- --------------------------------------------------------
@@ -173,7 +182,9 @@ CREATE TABLE `userdvbc` (
 --
 
 INSERT INTO `userdvbc` (`id`, `name`, `username`, `password`, `email`, `phone`, `address`, `id_dvbc`, `created_at`, `updated_at`) VALUES
-(2, 'hust', 'hust', '$2y$10$yjK66vhdAq4UAY/aPrwH2uxLivUGilpAIPl9Wc65qbAEK574exK3a', 'hust@gmail.com', '', 'Ha Noi', 1, '2022-07-12 07:34:43', '2022-07-12 07:34:43');
+(2, 'hust', 'hust', '$2y$10$yjK66vhdAq4UAY/aPrwH2uxLivUGilpAIPl9Wc65qbAEK574exK3a', 'hust@gmail.com', '', 'Ha Noi', 1, '2022-07-12 07:34:43', '2022-07-12 07:34:43'),
+(3, 'HNUE', 'hnue1', '$2y$10$.zz4w..DCw/XgGi1.h7k6Or0Stzj15EQkCEv7zuEuaf8iwoxIv32m', 'hnue@gmail.com', '', '', 2, '2022-07-15 08:19:34', '2022-07-15 08:19:49'),
+(4, 'Anh Nguyen', 'anhnt', '$2y$10$t4Z5zrA.qQcZNJwEoUV7N.EyyYCVNzW.2Nqfd9Wi.JJlOkGjAQR1.', 'anh.nt060699@gmail.com', '0912912231', '209 Doi Can, Ba Dinh', 1, '2022-07-15 08:32:08', '2022-07-15 08:32:08');
 
 -- --------------------------------------------------------
 
@@ -293,7 +304,7 @@ ALTER TABLE `dvbc`
 -- AUTO_INCREMENT cho bảng `minhchung`
 --
 ALTER TABLE `minhchung`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT cho bảng `tieuchi`
@@ -311,7 +322,7 @@ ALTER TABLE `tieuchuan`
 -- AUTO_INCREMENT cho bảng `userdvbc`
 --
 ALTER TABLE `userdvbc`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `userhddg`
