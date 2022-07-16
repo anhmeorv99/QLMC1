@@ -85,7 +85,8 @@ Route::group(['middleware' => 'auth:user,admin'] ,function(){
         Route::post("/them-minh-chung", [MinhChungController::class, "create"])->name("create-minh-chung");
         Route::get("/sua-minh-chung/{id}", [MinhChungController::class, "showEditMinhChung"])->name("show-edit");
         Route::post("/sua-minh-chung", [MinhChungController::class, "edit"])->name("edit-minh-chung");
-
+        Route::post("/cap-nhat-trang-thai", [MinhChungController::class, "updateStatus"])->name("update-status");
+        Route::delete("/xoa-minh-chung", [MinhChungController::class, "delete"])->name("delete-minh-chung");
 	});
 
 

@@ -7,6 +7,8 @@ use App\Models\TieuChuan;
 use App\Models\MinhChung;
 use App\Models\TieuChi;
 use App\Models\CTDT;
+use App\Models\DVBC;
+
 class MinhChungController extends Controller
 {
     public function showCategory()
@@ -26,7 +28,13 @@ class MinhChungController extends Controller
             $where['id_dvbc']=\Auth::user()->id_dvbc;
         }
         $list = MinhChung::where($where)->get();
+        foreach ($list as $key => $value) {
+            $value->ten_dvbc = DVBC::find($value->id_dvbc)->ten_dvbc;
+        }
         $tieuChi = TieuChi::find($id);
+        $tieuChuan = TieuChuan::find($tieuChi->id_tieu_chuan);
+        $data['tieuChuan']=$tieuChuan;
+
         $data['list']=$list;
         $data['tieuChi']=$tieuChi;
         \Cache::put('id_tieu_chi', $id, 60*60*24);
@@ -75,14 +83,27 @@ class MinhChungController extends Controller
                     'id_tieu_chi' => $id_tieuchi,
                     'file' => $custom_file_name,
                     'hash_file' => $file_name,
-                    'duyet' => 'ACCEPTED',
+                    'duyet' => 'REQUEST',
                 ]);
-
             return redirect()->route('minhchung.showListMinhChung', ['id' => $id_tieuchi]);
 
             }
             return redirect()->back()->with('error', 'File không hợp lệ');
         }
+    }
+
+    public function updateStatus(Request $request)
+    {
+        if($request->has("id")){
+            $id = $request->id;
+            $status = $request->status;
+            $minhchung = MinhChung::find($id);
+            $minhchung->duyet = $status;
+            $minhchung->save();
+            $minhchung->ten_dvbc = DVBC::find($minhchung->id_dvbc)->ten_dvbc;
+            return new JsonResponse(['status' => $minhchung], 200);
+        }
+        return new JsonResponse(['status' => 'error'], 406);
     }
 
     public function showEditMinhChung($id)
@@ -120,8 +141,6 @@ class MinhChungController extends Controller
                 $request->file('file')->storeAs('uploads', $file_name);
                 $request->file('file')->move(public_path('/uploads'), $file_name);
 
-
-
                 MinhChung::where("id", $request->input('id'))->update([
                     'ten_minh_chung' => $name,
                     'noi_dung' => $content,
@@ -130,19 +149,37 @@ class MinhChungController extends Controller
                     'id_tieu_chi' => $id_tieuchi,
                     'file' => $custom_file_name,
                     'hash_file' => $file_name,
-                    'duyet' => 'ACCEPTED',
                 ]);
+            }
 
+            else {
+                MinhChung::where("id", $request->input('id'))->update([
+                    'ten_minh_chung' => $name,
+                    'noi_dung' => $content,
+                    'id_dvbc' => $id_dvbc,
+                    'id_ctdt' => $id_ctdt,
+                    'id_tieu_chi' => $id_tieuchi]);
+            }
             return redirect()->route('minhchung.showListMinhChung', ['id' => $id_tieuchi]);
 
-            }
-            return redirect()->back()->with('error', 'File không hợp lệ');
+            // return redirect()->back()->with('error', 'File không hợp lệ');
         }
     }
     public function showMinhChung($id)
     {
         $minhChung = MinhChung::find($id);
 
+    }
+
+    function delete(Request $request)
+    {
+        if($request->has("id")){
+            $id = $request->id;
+            $minhchung = MinhChung::find($id);
+            $minhchung->delete();
+            return new JsonResponse(['status' => 'success'], 200);
+        }
+        return new JsonResponse(['status' => 'error'], 406);
     }
 
     public function getTieuChi($id)
