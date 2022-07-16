@@ -21,7 +21,7 @@ class UserController extends Controller
     //     $query = DB::table("userhddg");
     //     $query = $query->select("*")->where("permission", "!=", "admin")->orderby("id");
 
-    //     $data = $query->paginate(100); 
+    //     $data = $query->paginate(100);
     //     return view('user.hddg.users',$data);
     // }
 
@@ -41,11 +41,11 @@ class UserController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                     
+
                     $actionBtn ='<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     <i class="bi bi-trash3"></i>
                   </button>
-                  
+
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
@@ -64,16 +64,16 @@ class UserController extends Controller
                         </div>
                       </div>
                     </div>
-                  </div>'; 
+                  </div>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
     }
-  
+
     public function create_hddg(Request $request)
-    {   
+    {
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -100,16 +100,16 @@ class UserController extends Controller
                     // session()->flash('success', 'Your account is created');
                     // return Redirect::to("/users-hddg");
                 // }
-                // return redirect()->back()->with('error', 'username already exists'); 
-                return new JsonResponse($user, 200);  
-                
-            
-    
+                // return redirect()->back()->with('error', 'username already exists');
+                return new JsonResponse($user, 200);
+
+
+
         }
         // else{
         //     return view('user.hddg.register');
         // }
-       
+
     }
 
     public function update_hddg(Request $request){
@@ -166,7 +166,7 @@ class UserController extends Controller
     }
 
     public function create_dvbc(Request $request)
-    {   
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             "username" => "required|string|max:255|unique:userdvbc,username",
@@ -187,7 +187,7 @@ class UserController extends Controller
                         'phone' => trim($request->input('phone')),
                         'id_dvbc' => trim($request->input('id_dvbc')),
                     ]);
-                    return new JsonResponse(['user' => $user, 'ten_dvbc'=>$dvbcRecord[0]['ten_dvbc']], 200);  
+                    return new JsonResponse(['user' => $user, 'ten_dvbc'=>$dvbcRecord[0]['ten_dvbc']], 200);
         }
     }
 
@@ -225,7 +225,7 @@ class UserController extends Controller
             $user->phone = trim($request->input('phone'));
             $user->id_dvbc = trim($request->input('id_dvbc'));
             $user->save();
-            return new JsonResponse(['user' => $user, 'ten_dvbc'=>$dvbcRecord[0]['ten_dvbc']], 200); 
+            return new JsonResponse(['user' => $user, 'ten_dvbc'=>$dvbcRecord[0]['ten_dvbc']], 200);
         }
     }
 
@@ -235,6 +235,15 @@ class UserController extends Controller
         $userDelete->delete();
 
         return new JsonResponse(['status' => 'success', 'message' => 'Đã xóa thành công tài khoản đơn vị báo cáo'], 200);
+    }
+
+
+    public function viewProfile() {
+        if (\Auth::guard('user')->check()) {
+            $dvbc = DVBC::find(\Auth::guard('user')->user()->id_dvbc)->first();
+            return view('user.profile', compact('dvbc'));
+        }
+        return view('user.profile');
     }
 
 }

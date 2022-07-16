@@ -31,6 +31,14 @@
                     </form>
                 </div>
               </li>
+              <li class="user-footer" style="background-color: #F1F1F1; width: 60%;margin-left: 50px;">
+                <div class="pull-right">
+                    <a class="btn btn-default btn-flat" href="{{ route('profile') }}">
+                        Profile
+                    </a>
+                </div>
+              </li>
+
             </ul>
           </li>
         </ul>
@@ -49,9 +57,9 @@
         <div class="pull-left info">
             @if (\Auth::guard('user')->check())
 
-                <p>{{ \Auth::guard('user')->user()->name }}</p>
+                <a  href="{{ route('profile') }}">{{ \Auth::guard('user')->user()->name }}</a>
             @else
-                <p>{{ \Auth::guard('admin')->user()->name }}</p>
+                <a  href="{{ route('profile') }}" >{{ \Auth::guard('admin')->user()->name }}</a>
             @endif
           <!-- comment hear -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>

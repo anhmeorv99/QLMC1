@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth:user,admin'] ,function(){
 	Route::get('employee', [EmpController::class, 'index']);
 	Route::get('emp/listing', [EmpController::class, 'getEmployees'])->name('emp.listing');
 
+    Route::get('profile', [UserController::class, 'viewProfile'])->name('profile');
+
 // 	Route::get('/home', 'HomeController@index')->name('home');
 
 // 	Route::get('/nhomthuchien', 'HomeController@show')->name('nhomthuchien');
