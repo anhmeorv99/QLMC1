@@ -5,7 +5,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BaoCao extends Model
+class DanhGia extends Model
 {
-    protected $table = 'baocao';
+    protected $table = 'danhgia';
 }

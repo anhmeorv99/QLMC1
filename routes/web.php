@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth;
+use App\Http\Controllers\DanhGiaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MinhchungcsgdController;
 use App\Http\Controllers\MinhChungController;
@@ -91,6 +92,10 @@ Route::group(['middleware' => 'auth:user,admin'] ,function(){
         Route::delete("/xoa-minh-chung", [MinhChungController::class, "delete"])->name("delete-minh-chung");
 	});
 
+    Route::prefix("danh-gia")->name("danhgia.")->group(function(){
+        Route::get("/", [DanhGiaController::class, "showDanhGia"])->name("tu-danh-gia");
+        Route::post('luu-danh-gia', [DanhGiaController::class, "saveDanhGia"])->name('save');
+    });
 
 // 	Route::get('/minhchungctdt', 'MinhchungctdtController@index')->name('minhchungctdt');
 // 	Route::match(['get', 'post'],'/themminhchungctdt', 'MinhchungctdtController@create')->name('themminhchungctdt');
