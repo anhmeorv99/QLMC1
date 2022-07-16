@@ -185,6 +185,16 @@ class MinhChungController extends Controller
     public function getTieuChi($id)
     {
         $list = TieuChi::where('id_tieu_chuan', $id)->get();
+        if(\Auth::guard('user')->check()){
+            foreach ($list as  $value) {
+                $value->so_luong_MC = MinhChung::where('id_tieu_chi',$value->id)->where('id_dvbc', \Auth::guard('user')->user()->id_dvbc)->count();
+            }
+        } else {
+            foreach ($list as  $value) {
+                $value->so_luong_MC = MinhChung::where('id_tieu_chi',$value->id)->count();
+            }
+        }
+
         return new JSONResponse($list, 200);
     }
 }

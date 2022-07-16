@@ -71,9 +71,10 @@
             let element = `<table >
                 <thead>
                     <tr>
-                        <th style="width: 5%">Index</th>
-                        <th  style="width: 15%">Ten Tieu Chi</th>
-                        <th style="width: 20%"> Noi Dung</th>
+                        <th style="width: 5%">Mã tiêu chí</th>
+                        <th  style="width: 15%">Tên tiêu chí</th>
+                        <th style="width: 20%">Mô tả</th>
+                        <th style="width: 10%">Số lượng minh chứng</th>
                     </tr>
                 </thead>
                 <tbody>`;
@@ -86,6 +87,7 @@
                         <td>${step}</td>
                         <td><a href="{{ url('/') }}/minh-chung/tieu-chi-${item.id}">${item.ten_tieu_chi}<i class="bi bi-arrow-up-right-square px-2 text-primary"></i></a></td>
                         <td class="string-1">${item.noi_dung}</td>
+                        <td>${item.so_luong_MC}</td>
                     </tr>`;
             });
             element += '</tbody></table>';

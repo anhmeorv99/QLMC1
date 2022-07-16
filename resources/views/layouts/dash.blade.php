@@ -17,7 +17,7 @@
         <ul class="nav navbar-nav">
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="image/avatar.png" class="user-image" alt="User">
+              <img src="{{url('/image/avatar.png')}}" class="user-image" alt="User">
               {{--<span class="hidden-xs">{{ Auth::user()->name }}</span> --}}
               <!-- comment hear -->
 
@@ -44,7 +44,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="image/avatar.png" class="img-circle" alt="User">
+          <img src="{{url('/image/avatar.png')}}" class="img-circle" alt="User">
         </div>
         <div class="pull-left info">
             @if (\Auth::guard('user')->check())
