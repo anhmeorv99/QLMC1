@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 16, 2022 lúc 10:50 AM
+-- Thời gian đã tạo: Th7 17, 2022 lúc 10:47 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.29
 
@@ -55,9 +55,19 @@ CREATE TABLE `danhgia` (
   `id_tieu_chi` int(11) NOT NULL,
   `danh_gia` int(11) DEFAULT NULL,
   `tu_danh_gia` int(11) DEFAULT NULL,
+  `year` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `danhgia`
+--
+
+INSERT INTO `danhgia` (`id`, `id_dvbc`, `id_tieu_chi`, `danh_gia`, `tu_danh_gia`, `year`, `created_at`, `updated_at`) VALUES
+(5, 1, 19, 0, 2, 2022, '2022-07-17 01:17:46', '2022-07-17 01:36:59'),
+(6, 1, 20, 1, 0, 2022, '2022-07-17 01:18:12', '2022-07-17 01:18:57'),
+(7, 3, 19, NULL, 0, 2022, '2022-07-17 01:39:15', '2022-07-17 01:39:15');
 
 -- --------------------------------------------------------
 
@@ -108,8 +118,7 @@ CREATE TABLE `minhchung` (
 --
 
 INSERT INTO `minhchung` (`id`, `ten_minh_chung`, `noi_dung`, `id_dvbc`, `id_ctdt`, `id_tieu_chi`, `file`, `hash_file`, `duyet`, `created_at`, `updated_at`) VALUES
-(25, 'asdasdas', 'asdasdsa', 1, 1, 12, 'keymap.txt', '5298a6ffff4d8789245b6781b7843038.txt', 'ACCEPTED', '2022-07-15 12:47:05', '2022-07-16 01:19:19'),
-(26, 'sdsad2', 'asdasda', 1, 1, 12, 'ĐGTV_ Nguyễn Tuấn Anh.docx', 'ff0229da50ac56a0f1bac414d6621b4f.docx', 'ACCEPTED', '2022-07-15 12:47:35', '2022-07-16 01:21:07');
+(30, 'Minh chứng cho tiêu chuẩn 3', 'ádasdsad', 1, 1, 20, 'keymap.txt', '5298a6ffff4d8789245b6781b7843038.txt', 'ACCEPTED', '2022-07-17 01:17:40', '2022-07-17 01:17:59');
 
 -- --------------------------------------------------------
 
@@ -131,9 +140,8 @@ CREATE TABLE `tieuchi` (
 --
 
 INSERT INTO `tieuchi` (`id`, `ten_tieu_chi`, `id_tieu_chuan`, `noi_dung`, `created_at`, `updated_at`) VALUES
-(12, 'Tiêu Chí 1', 13, '123', '2022-07-14 21:41:54', '2022-07-14 22:04:01'),
-(13, 'Hello', 13, '123', '2022-07-14 22:06:24', '2022-07-14 22:06:24'),
-(14, 'SuperAdmin', 13, '232', '2022-07-14 22:10:30', '2022-07-14 22:10:30');
+(19, 'Tiêu Chí 1', 21, 'Tiêu Chí cho CSGD', '2022-07-17 01:16:15', '2022-07-17 01:16:15'),
+(20, 'Tiêu chí 2', 20, 'Tiêu chí cho CTDT', '2022-07-17 01:16:37', '2022-07-17 01:16:37');
 
 -- --------------------------------------------------------
 
@@ -155,8 +163,8 @@ CREATE TABLE `tieuchuan` (
 --
 
 INSERT INTO `tieuchuan` (`id`, `ten_tieu_chuan`, `loai_tieu_chuan`, `noi_dung`, `created_at`, `updated_at`) VALUES
-(13, 'Tiêu Chuẩn 1', 'CSGD', 'CSGD2', '2022-07-14 21:40:38', '2022-07-16 06:45:07'),
-(14, 'Tiêu Chuẩn 2', 'CTDT', 'OK', '2022-07-14 21:53:37', '2022-07-14 21:53:37');
+(20, 'Tiêu chuẩn 3', 'CTDT', 'Ngoại ngữ đầu ra đạt chuẩn Quốc tế', '2022-07-16 09:05:56', '2022-07-16 09:05:56'),
+(21, 'Tiêu Chuẩn 1', 'CSGD', 'Test CSGD', '2022-07-17 01:15:48', '2022-07-17 01:15:48');
 
 -- --------------------------------------------------------
 
@@ -184,7 +192,7 @@ CREATE TABLE `userdvbc` (
 INSERT INTO `userdvbc` (`id`, `name`, `username`, `password`, `email`, `phone`, `address`, `id_dvbc`, `created_at`, `updated_at`) VALUES
 (2, 'hust', 'hust', '$2y$10$yjK66vhdAq4UAY/aPrwH2uxLivUGilpAIPl9Wc65qbAEK574exK3a', 'hust@gmail.com', '', 'Ha Noi', 1, '2022-07-12 07:34:43', '2022-07-12 07:34:43'),
 (3, 'HNUE', 'hnue1', '$2y$10$.zz4w..DCw/XgGi1.h7k6Or0Stzj15EQkCEv7zuEuaf8iwoxIv32m', 'hnue@gmail.com', '', '', 2, '2022-07-15 08:19:34', '2022-07-15 08:19:49'),
-(4, 'Anh Nguyen', 'anhnt', '$2y$10$t4Z5zrA.qQcZNJwEoUV7N.EyyYCVNzW.2Nqfd9Wi.JJlOkGjAQR1.', 'anh.nt060699@gmail.com', '0912912231', '209 Doi Can, Ba Dinh', 1, '2022-07-15 08:32:08', '2022-07-15 08:32:08');
+(4, 'Anh Nguyen', 'anhnt', '$2y$10$3gHDhynxbI8sD9JujoqblOMI5d82boeLaXVb7H9.Ht8du7/dzkX22', 'anh.nt060699@gmail.com', '0912912231', '209 Doi Can, Ba Dinh', 1, '2022-07-15 08:32:08', '2022-07-17 00:21:37');
 
 -- --------------------------------------------------------
 
@@ -210,13 +218,14 @@ CREATE TABLE `userhddg` (
 --
 
 INSERT INTO `userhddg` (`id`, `name`, `username`, `password`, `email`, `phone`, `address`, `permission`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', '$2y$10$7fglZ2yz6idUz96dMHVmveyyrjCxD9mxGmqX5q.feknWKzopP.Cny', 'anh.nt060699@gmail.com', NULL, NULL, 'admin', '2022-07-10 23:02:42', '2022-07-11 06:31:12'),
-(29, 'mod', 'dsa11112', '$2y$10$J3bLRVvuGvE18zYAsw0DZOz1HN5RjYNd8xuyXpdDfYDGG0byc15UW', '123@gmail.com', '121212', '', 'mod', '2022-07-13 09:49:58', '2022-07-13 21:51:15'),
+(1, 'admin', 'admin', '$2y$10$NW2YiNZyPfLxSAk0yEEsAOCrjgGy3cZG6WiLinKEO68VL72txtap2', 'anh.nt060699@gmail.com', NULL, NULL, 'admin', '2022-07-10 23:02:42', '2022-07-17 00:26:39'),
+(29, 'mod', 'dsa11112', '$2y$10$J3bLRVvuGvE18zYAsw0DZOz1HN5RjYNd8xuyXpdDfYDGG0byc15UW', '123@gmail.com', '121212', '', 'admin', '2022-07-13 09:49:58', '2022-07-16 08:57:25'),
 (30, 'hello ae', 'hello', '$2y$10$vgKrgu3nduzoxlG1773lcOp7Qidpv6S0BzER8OZIRWjNgpmbhfYfS', 'helloae@gmail.com', NULL, '', 'mod', '2022-07-13 09:52:00', '2022-07-13 09:52:00'),
 (31, 'hehehe', 'modxxx', '$2y$10$n4L0pDg38R0w2ePZGuJeB.PuWvSmD.8m5niFc5fbwJcfHl189WDWi', 'mox@gmail.com', NULL, '', 'mod', '2022-07-13 09:56:16', '2022-07-13 09:56:16'),
 (32, 'asdsadsa12', 'sadsa12dsad', '$2y$10$eVtkM71kaSLommY3DVYqme3c/tMD2HVq87EC0tDH.eVrTJgUzG6d.', 'sadsadsa@gmail.com', '', '', 'mod', '2022-07-13 09:57:33', '2022-07-13 21:59:42'),
 (41, 'Anh', 'anhh', '$2y$10$ywrHaDRQu3y3tBD7wzJb3Ok3dVJhhD1Q6.ds2HbX2Wmt9tfj4LQ2.', 'anh1@gmail.com', NULL, '', 'mod', '2022-07-14 22:02:11', '2022-07-14 22:02:11'),
-(42, 'Anh2', 'anh2', '$2y$10$GttVEKFjZCGsffKhLjBboOZUZyLfSqn53a2oVIscOonN/jVQh94G6', 'anh2@gmail.com', NULL, '', 'mod', '2022-07-14 22:04:53', '2022-07-14 22:04:53');
+(42, 'Anh2', 'anh2', '$2y$10$GttVEKFjZCGsffKhLjBboOZUZyLfSqn53a2oVIscOonN/jVQh94G6', 'anh2@gmail.com', NULL, '', 'mod', '2022-07-14 22:04:53', '2022-07-14 22:04:53'),
+(43, 'duytien', 'duytien', '$2y$10$IAuO5DDd2Sx5BzBi7bkJROMuItKGDGmUTpaEYtAheCjBBcW8ZMaCm', 'duytien@gmail.com', NULL, '', 'mod', '2022-07-16 08:58:01', '2022-07-16 08:58:01');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -292,7 +301,7 @@ ALTER TABLE `ctdt`
 -- AUTO_INCREMENT cho bảng `danhgia`
 --
 ALTER TABLE `danhgia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `dvbc`
@@ -304,19 +313,19 @@ ALTER TABLE `dvbc`
 -- AUTO_INCREMENT cho bảng `minhchung`
 --
 ALTER TABLE `minhchung`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT cho bảng `tieuchi`
 --
 ALTER TABLE `tieuchi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `tieuchuan`
 --
 ALTER TABLE `tieuchuan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT cho bảng `userdvbc`
@@ -328,7 +337,7 @@ ALTER TABLE `userdvbc`
 -- AUTO_INCREMENT cho bảng `userhddg`
 --
 ALTER TABLE `userhddg`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
