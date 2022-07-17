@@ -12,6 +12,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use DataTables;
 use DB;
+use Hash;
+use Auth;
 
 
 class UserController extends Controller
@@ -244,6 +246,39 @@ class UserController extends Controller
             return view('user.profile', compact('dvbc'));
         }
         return view('user.profile');
+    }
+
+    public function viewChangePassword() {
+        return view('user.change_password');
+    }
+
+    public function updateChangePassword(Request $request) {
+        $validatedData = $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|string|min:6|confirmed',
+
+        ]);
+
+
+        if (!(Hash::check($request->get('current_password'), Auth::user()->password))) {
+            // The passwords matches
+            return redirect()->back()->with("error","Incorrect Password");
+        }
+
+        if(strcmp($request->get('current_password'), $request->get('password')) == 0){
+            // Current password and new password same
+            return redirect()->back()->with("error","New password and Current password same");
+        }
+
+
+        //quên. chỉ cho user đổi pass thôi. k caanf ddaau
+        // no chayj the nay la binh thuong r, khac thuong moi phai them cai guard
+        // vao db rết MK đi, không thì tạo moi
+        $user = Auth::user();
+        $user->password = bcrypt($request->get('password'));
+        $user->save();
+
+        return redirect()->back()->with("success","Change Password Success");
     }
 
 }

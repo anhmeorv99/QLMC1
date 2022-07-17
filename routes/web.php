@@ -38,6 +38,8 @@ Route::namespace('App\Http\Controllers\Auth')->group(function () {
 
 });
 
+
+
 // Auth::routes();
 // Route::group(['middleware' => 'auth'], function(){
 Route::group(['middleware' => 'auth:user,admin'] ,function(){
@@ -45,7 +47,11 @@ Route::group(['middleware' => 'auth:user,admin'] ,function(){
 
     Route::get('profile', [UserController::class, 'viewProfile'])->name('profile');
 
-	Route::get('/tieuchuan', [TieuchuanController::class, 'index'])->name('tieuchuan');
+    Route::get('/change_password', [UserController::class, 'viewChangePassword'])->name('viewChangePassword');
+    Route::post('/change_password', [UserController::class, 'updateChangePassword'])->name('updateChangePassword');
+
+
+	Route::get('/tieuchuan', [TieuchuanController::class, 'index'])->name('tieuchuan')->middleware('can:admin');
 	Route::delete('/tieuchuan/delete', [TieuchuanController::class, 'delete'])->name('delete-tieuchuan')->middleware('can:admin');
 	Route::match(['get', 'post'],'/tieuchuan/create', [TieuchuanController::class, 'create'])->name('create-tieuchuan')->middleware('can:admin');
 	Route::post('/tieuchuan/update', [TieuchuanController::class, 'update'])->name('update-tieuchuan')->middleware('can:admin');;
@@ -70,7 +76,7 @@ Route::group(['middleware' => 'auth:user,admin'] ,function(){
     });
 
 
-Route::get('/tieuchi', [TieuchiController::class, 'index'])->name('tieuchi');
+Route::get('/tieuchi', [TieuchiController::class, 'index'])->name('tieuchi')->middleware('can:admin');
 Route::delete('/tieuchi/delete', [TieuchiController::class, 'delete'])->name('delete-tieuchi')->middleware('can:admin');
 Route::match(['get', 'post'],'/tieuchi/create', [TieuchiController::class, 'create'])->name('create-tieuchi')->middleware('can:admin');
 Route::post('/tieuchi/update', [TieuchiController::class, 'update'])->name('update-tieuchi')->middleware('can:admin');

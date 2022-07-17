@@ -19,8 +19,9 @@
           <th style="width:5%;">ID</th>
           <th style="width:20%;">Tên Tiêu Chí</th>
           <th style="width:20%;">Tên tiêu chuẩn</th>
+          <th style="width:10%;">Loại tiêu chuẩn</th>
           <th style="width:30%;">Nội dung</th>
-          <th style="width:10%;">Action</th>
+          <th style="width:10%;">Thao tác</th>
         </tr>
       </thead>
       <tbody>
@@ -30,6 +31,7 @@
           <td>{{$item['id']}}</td>
           <td>{{$item->ten_tieu_chi}}</td>
           <td data-tieuchuan="{{$item->id_tieu_chuan}}">{{$item->tieuchuan->ten_tieu_chuan}}</td>
+          <td>{{$item->tieuchuan->loai_tieu_chuan}}</td>
           <td>{{$item->noi_dung}}</td>
           <td class="text-center">
             <button class="btn btn-primary" onclick="editFunc({{$item->id}})">
@@ -84,11 +86,12 @@
             <small id="error_name" class="form-text text-danger"></small>
           </div>
 
+
           <div class="form-group">
             <label>Tiêu chuẩn</label>
             <select name="tieuchuan" id="tieuchuan" class="form-control">
               @foreach($listTieuChuan as $itemTieuChuan)
-              <option value="{{$itemTieuChuan->id}}">{{$itemTieuChuan->ten_tieu_chuan}}</option>
+              <option value="{{$itemTieuChuan->id}}__{{$itemTieuChuan->loai_tieu_chuan}}">{{$itemTieuChuan->ten_tieu_chuan}} - {{$itemTieuChuan->loai_tieu_chuan}}</option>
               @endforeach
             </select>
           </div>
@@ -118,7 +121,6 @@
   });
   $("#btn-submit-del").click(function() {
     let id = $("#id-del").val();
-    console.log(id);
     $.ajax({
       url: "{{ route('delete-tieuchi') }}",
       type: "delete",
@@ -151,8 +153,10 @@
   //todo
   $("#btn-submit-detail").on("click", function() {
     let name = $("#name").val();
-    let typeTieuChi = $("#type").val();
     let tieuchuan = $("#tieuchuan").val();
+    let typeTieuChi = tieuchuan.split("__")[1];
+    tieuchuan = tieuchuan.split("__")[0];
+
     let content = $("#content").val();
 
     let type = $("#btn-submit-detail").data('type');
@@ -161,7 +165,7 @@
     if (!check) {
       return;
     }
-    let data = {
+    var input_data = {
       name: name,
       type: typeTieuChi,
       tieuchuan: tieuchuan,
@@ -175,14 +179,13 @@
       url = $("#modal_detail").data('route-add');
     } else {
       url = $("#modal_detail").data('route-edit');
-      data.id = $("#id-detail").val();
+      input_data.id = $("#id-detail").val();
     }
-    console.log("url " + url);
 
     $.ajax({
       url: url,
       type: "post",
-      data: data,
+      data: input_data,
       dataType: 'json',
       success: function(data) {
         $("#modal_detail").modal("hide");
@@ -196,6 +199,7 @@
             `${data.tieuchi.id}`,
             `${data.tieuchi.ten_tieu_chi}`,
             `${data.ten_tieu_chuan}`,
+            `${input_data.type}`,
             `${data.tieuchi.noi_dung}`,
             '<div class="text-center"><button class="btn btn-primary mx-1" onclick="editFunc(' +
             data.tieuchi.id + ')"><i class="bi bi-pencil-square"></i></button>' +
@@ -209,6 +213,7 @@
             `${data.tieuchi.id}`,
             `${data.tieuchi.ten_tieu_chi}`,
             `${data.ten_tieu_chuan}`,
+            `${input_data.type}`,
             `${data.tieuchi.noi_dung}`,
             '<button class="btn btn-primary mx-1" onclick="editFunc(' +
             data.tieuchi.id + ')"><i class="bi bi-pencil-square"></i></button>' +
@@ -218,7 +223,7 @@
         }
 
         $(newRow).find('td').eq(2).attr('data-tieuchuan', data.tieuchi.id_tieu_chuan);
-        $(newRow).find('td').eq(4).addClass('text-center');
+        $(newRow).find('td').eq(5).addClass('text-center');
         $(newRow).trigger("change");
 
         $("form").trigger("reset");
@@ -244,7 +249,7 @@
     let name = $("#row_" + id).find("td").eq(1).text();
     let tieuchuanId = $("#row_" + id).find("td").eq(2).attr('data-tieuchuan')
     let tieuchuanText = $("#row_" + id).find("td").eq(2).text();
-    let content = $("#row_" + id).find("td").eq(3).text();
+    let content = $("#row_" + id).find("td").eq(4).text();
 
     $("#name").val(name);
     $("#content").val(content);

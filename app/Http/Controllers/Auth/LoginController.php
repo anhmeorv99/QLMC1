@@ -33,7 +33,7 @@ class LoginController extends Controller
 
     public function process_login(Request $request)
     {
-        $request->validate([
+        $validator = $request->validate([
             'username' => 'required',
             'password' => 'required',
             "type_user"=>"required",
@@ -51,9 +51,13 @@ class LoginController extends Controller
 
                 return redirect()->route('home');
             }else{
-            // dd("error");
-            session()->flash('message', 'Invalid credentials');
-            return redirect()->route('login-admin');
+                $err = [
+                    'password' => 'Sai tài khoản hoặc mật khẩu',
+                ];
+            return redirect()->route('login-admin')->withErrors(
+                $err
+            );
+
         }
         }
 
@@ -64,7 +68,12 @@ class LoginController extends Controller
             }else{
             // dd("error");
             // session()->flash('message', 'Invalid credentials');
-            return back()->with('message', 'Invalid credentials');
+            $err = [
+                'password' => 'Sai tài khoản hoặc mật khẩu',
+            ];
+            return back()->withErrors(
+                $err
+            );
         }
 
         }
@@ -94,7 +103,7 @@ class LoginController extends Controller
     }
     public function logout(Request $request)
     {
-        
+
         $this->guard('admin')->logout();
         $this->guard('user')->logout();
 

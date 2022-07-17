@@ -13,7 +13,8 @@
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
-      <div class="navbar-custom-menu">
+      <div class="navbar-custom-menu"style="margin-left: 95%;">
+
         <ul class="nav navbar-nav">
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -23,20 +24,18 @@
 
             </a>
             <ul class="dropdown-menu" style="background-color: #F1F1F1; width:50%;">
-              <li class="user-footer" style="background-color: #F1F1F1; width: 60%;margin-left: 50px;">
-                <div class="pull-right">
-                    <form action="{{ route('logout') }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-default btn-flat">Đăng Xuất</button>
-                    </form>
-                </div>
+
+              <li class="user-footer">
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-default " style="width:100%;">Đăng Xuất</button>
+                </form>
+
               </li>
-              <li class="user-footer" style="background-color: #F1F1F1; width: 60%;margin-left: 50px;">
-                <div class="pull-right">
-                    <a class="btn btn-default btn-flat" href="{{ route('profile') }}">
+              <li class="user-footer">
+                    <a class="btn btn-default" href="{{ route('profile') }}">
                         Profile
                     </a>
-                </div>
               </li>
 
             </ul>
