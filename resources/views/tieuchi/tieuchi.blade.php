@@ -6,7 +6,7 @@
     <h1>
       Danh Sách Tiêu Chí
     </h1>
-    <a href="#" class="btn btn-primary" style="margin-right: 15px;" id="add_tieuchi"> <i class="bi bi-person-plus-fill"></i></a>
+    <a href="#" class="btn btn-primary" style="margin-right: 15px;" id="add_tieuchi"> <i class="bi bi-file-earmark-plus-fill"></i></a>
   </section>
 
   <!-- Main content -->

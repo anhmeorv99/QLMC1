@@ -24,7 +24,7 @@
                     <th style="width:25%;">Tên tài khoản</th>
                     <th style="width:15%;">Tên DVBC</th>
                     <th style="width:15%;">Email</th>
-                    <th style="width:10%;">Action</th>
+                    <th style="width:10%;">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
@@ -220,7 +220,7 @@
             dataType: 'json',
             success: function(data) {
         console.log(data);
-                
+
                 $("#modal_detail").modal("hide");
                 // location.reload();
                 var table = $('.yajra-datatable').DataTable();

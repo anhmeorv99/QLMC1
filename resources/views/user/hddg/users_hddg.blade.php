@@ -22,13 +22,13 @@
                     <th style="width:25%;">Tên tài khoản</th>
                     <th style="width:20%;">Email</th>
                     <th style="width:10%;">Quyền</th>
-                    <th style="width:10%;">Action</th>
+                    <th style="width:10%;">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($list as $item)
                 <tr id="row_{{$item->id}}" data-address="{{$item->address}}" data-phone="{{$item->phone}}">
-    
+
                 <!-- <tr id="row_{{$item->id}}"> -->
                     <td>{{$item->id}}</td>
                     <td>{{$item->name}}</td>

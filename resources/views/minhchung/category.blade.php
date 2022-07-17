@@ -16,7 +16,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header d-flex justify-content-between px-5">
             <h1>
-                Danh Sách Tiêu Chuẩn
+                Danh sách minh chứng theo tiêu chuẩn, tiêu chí
             </h1>
         </section>
 

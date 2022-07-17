@@ -137,9 +137,7 @@
                     @endif
                     <!-- /.quản lý user -->
 
-                    <!-- thông tin nhóm và công việc -->
-                    <li><a href="{{ url('/nhomthuchien') }}"><i class="fa fa-book"></i> <span>Nhóm Thực Hiện</span></a>
-                    </li>
+
                 </ul>
             </section>
             <!-- /.sidebar -->

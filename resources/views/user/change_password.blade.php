@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header d-flex justify-content-between px-5">
         <h1>
-            Thông tin tài khoản
+            Đổi mật khẩu
         </h1>
     </section>
 
@@ -46,7 +46,7 @@
                                 @endforeach
                             @endif
 
-                        <h4>Change Password</h4>
+                        <h4>Đổi mật khẩu</h4>
                         <hr>
 
                             <div class="col">
@@ -54,26 +54,26 @@
                                     @csrf
                                 <div class="col-md-8 offset-2">
                                     <div class="form-group">
-                                        <label for="">Current Password</label>
+                                        <label for="">Mật khẩu hiện tại</label>
                                         <input type="password" name="current_password" class="form-control" >
                                     </div>
                                 </div>
                                 <div class="col-md-8 offset-2">
                                     <div class="form-group">
-                                        <label for="">New Password</label>
+                                        <label for="">Mật khẩu mới</label>
                                         <input type="password" name="password" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-8 offset-2">
                                     <div class="form-group">
-                                        <label for="">Confirm Password</label>
+                                        <label for="">Nhập lại mật khẩu</label>
                                         <input type="password" name="password_confirmation" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-4 offset-5">
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            Change Password
+                                            Đổi mật khẩu
                                         </button>
                                     </div>
                                 </div>

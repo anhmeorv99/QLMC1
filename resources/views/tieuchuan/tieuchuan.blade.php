@@ -6,7 +6,7 @@
     <h1>
       Danh Sách Tiêu Chuẩn
     </h1>
-    <a href="#" class="btn btn-primary" style="margin-right: 15px;" id="add_tieuchuan"> <i class="bi bi-person-plus-fill"></i></a>
+    <a href="#" class="btn btn-primary" style="margin-right: 15px;" id="add_tieuchuan"> <i class="bi bi-file-earmark-plus-fill"></i></a>
   </section>
 
   <!-- Main content -->
@@ -20,7 +20,7 @@
           <th style="width:20%;">Tên Tiêu Chuẩn</th>
           <th style="width:15%;">Loại tiêu chuẩn</th>
           <th style="width:30%;">Nội dung</th>
-          <th style="width:10%;">Action</th>
+          <th style="width:10%;">Thao tác</th>
         </tr>
       </thead>
       <tbody>

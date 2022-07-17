@@ -64,12 +64,12 @@
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{$item->id}}" data-id="{{$item->id}}">
                                             @if($item->duyet == 'REQUEST')
-                                          <a class="dropdown-item btn-accept" href="#">Duyet</a>
-                                          <a class="dropdown-item btn-denine" href="#">Khong duyet</a>
+                                          <a class="dropdown-item btn-accept" href="#">Duyệt</a>
+                                          <a class="dropdown-item btn-denine" href="#">Không Duyệt</a>
                                           @elseif ($item->duyet == 'ACCEPTED')
-                                          <a class="dropdown-item btn-denine" href="#">Khong duyet</a>
+                                          <a class="dropdown-item btn-denine" href="#">Không Duyệt</a>
                                           @else
-                                          <a class="dropdown-item btn-accept" href="#">Duyet</a>
+                                          <a class="dropdown-item btn-accept" href="#">Duyệt</a>
                                           @endif
                                         </div>
                                       </div>
