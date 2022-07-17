@@ -8,6 +8,7 @@ use App\Models\MinhChung;
 use App\Models\TieuChi;
 use App\Models\CTDT;
 use App\Models\DVBC;
+use Illuminate\Support\Facades\Auth;
 
 class MinhChungController extends Controller
 {
@@ -61,7 +62,7 @@ class MinhChungController extends Controller
         if($request->isMethod('post')){
             $name = $request->input("name");
             $content = $request->input("content");
-            $id_dvbc = \Auth::guard('user')->user()->id_dvbc;
+            $id_dvbc = Auth::guard('user')->user()->id_dvbc;
             $id_ctdt = $request->ctdt;
             $id_tieuchi = $request->id_tieuchi;
             if ($files = $request->file('file')) {

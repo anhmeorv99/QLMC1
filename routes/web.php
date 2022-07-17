@@ -91,8 +91,9 @@ Route::group(['middleware' => 'auth:user,admin'] ,function(){
 	});
 
     Route::prefix("danh-gia")->name("danhgia.")->group(function(){
-        Route::get("/", [DanhGiaController::class, "showDanhGia"])->name("tu-danh-gia");
+        Route::get("/", [DanhGiaController::class, "showDanhGia"])->name("danh-gia");
         Route::post('luu-danh-gia', [DanhGiaController::class, "saveDanhGia"])->name('save');
+        Route::get("danh-sach", [DanhGiaController::class, "showCTDT"])->name("show-CTDT");
     });
 
 // 	Route::get('/minhchungctdt', 'MinhchungctdtController@index')->name('minhchungctdt');
