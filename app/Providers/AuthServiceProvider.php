@@ -31,8 +31,8 @@ class AuthServiceProvider extends ServiceProvider
             return $user->permission === null;
         });
 
-        Gate::define('mod', function ($user) {
-            return $user->permission === 'mod';
+        Gate::define('duyet', function ($user) {
+            return $user->permission === 'mod' || $user->permission === 'admin';
         });
         //
     }

@@ -4,7 +4,18 @@
         <!-- Content Header (Page header) -->
         <section class="content-header d-flex align-items-center px-5">
             <h1 class="mr-auto p-2">
-                {{ 'Tự đánh giá' }}
+                @if (Auth::guard('admin')->check())
+                    Đánh giá đơn vị: {{$dvbc->ten_dvbc}}
+                @else
+                @if($category == "CSGD")
+                    Tự đánh giá cơ sở giáo dục
+                @else
+                Tự đánh gái chương trình đào tạo
+                @endif
+
+                @endif
+                (Hoàn thành: {{$process}}%)
+
             </h1>
 
             @if (Auth::guard('admin')->check())
@@ -23,6 +34,14 @@
         <!-- <section class="invoice"> -->
 
         <div class="mt-5" style="width: 95%; margin: auto">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link  @if($category == "CSGD") active @endif " aria-current="page" href="{{ route('danhgia.danh-gia')."?dvbc=".$dvbc->id."&category=CSGD" }}">Cơ sở giáo dục</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if($category == "CTDT") active @endif" href="{{ route('danhgia.danh-gia')."?dvbc=".$dvbc->id."&category=CTDT" }}">Chương trình đào tạo</a>
+                </li>
+            </ul>
             <table class="table table-light table-hover">
                 <thead class="bg-primary">
                     <tr>

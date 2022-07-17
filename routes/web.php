@@ -66,13 +66,14 @@ Route::group(['middleware' => 'auth:user,admin'] ,function(){
         Route::post("/them-minh-chung", [MinhChungController::class, "create"])->name("create-minh-chung")->middleware('can:user');
         Route::get("/sua-minh-chung/{id}", [MinhChungController::class, "showEditMinhChung"])->name("show-edit")->middleware('can:user');
         Route::post("/sua-minh-chung", [MinhChungController::class, "edit"])->name("edit-minh-chung")->middleware('can:user');
-        Route::post("/cap-nhat-trang-thai", [MinhChungController::class, "updateStatus"])->name("update-status")->middleware('canot:user');
+        Route::post("/cap-nhat-trang-thai", [MinhChungController::class, "updateStatus"])->name("update-status")->middleware('can:duyet');
         Route::delete("/xoa-minh-chung", [MinhChungController::class, "delete"])->name("delete-minh-chung")->middleware('can:user');
 	});
 
     Route::prefix("danh-gia")->name("danhgia.")->group(function(){
-        Route::get("/", [DanhGiaController::class, "showDanhGia"])->name("tu-danh-gia");
+        Route::get("/", [DanhGiaController::class, "showDanhGia"])->name("danh-gia");
         Route::post('luu-danh-gia', [DanhGiaController::class, "saveDanhGia"])->name('save');
+        Route::get("danh-sach", [DanhGiaController::class, "showCTDT"])->name("show-CTDT");
     });
 
 
